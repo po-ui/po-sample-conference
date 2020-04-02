@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">Cancel</ion-button>
+    </ion-buttons>
+
+    <ion-title>
+      Filter Sessions
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="applyFilters()" strong>Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-list-header>Tracks</ion-list-header>
+
+    <ion-item *ngFor="let track of tracks" slot="start">
+      <span class="dot" [style.backgroundColor]="track.color"></span>
+      <ion-label>{{ track.name }}</ion-label>
+      <ion-toggle [(ngModel)]="track.isChecked" color="secondary"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-button (click)="resetFilters()">
+        Reset All Filters
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

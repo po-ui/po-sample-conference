@@ -1,0 +1,18 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>About conference</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2 class="conference-title">{{ conference?.title }}</h2>
+  <p>{{ conference?.date | date }}</p>
+  <p>{{ conference?.location }}</p>
+  <br>
+  <p>{{ conference?.description }}</p>
+</ion-content>

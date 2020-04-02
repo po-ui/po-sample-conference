@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Signup</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="login-page">
+
+  <po-page-login
+    [p-literals]="customLiterals"
+    p-hide-remember-user
+    (p-login-submit)="onSignup($event)">
+  </po-page-login>
+
+</ion-content>
