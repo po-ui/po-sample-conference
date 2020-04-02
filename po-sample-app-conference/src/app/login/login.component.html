@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-icon name="menu"></ion-icon>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+
+  <!-- <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Login</ion-title>
+  </ion-navbar> -->
+</ion-header>
+
+<ion-content>
+
+  <po-page-login
+    (p-login-submit)="onLogin($event)"
+    p-hide-remember-user>
+  </po-page-login>
+
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-fab right bottom *ngIf="isLogged">
+    <button ion-fab mini (click)="goToNoteDetail()"><ion-icon name="paper"></ion-icon></button>
+  </ion-fab>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="lecture">
+
+    <h1>{{ lecture.title }}</h1>
+    <ion-badge [style.backgroundColor]="lecture.track.color" slot="end">{{ lecture.track.name }}</ion-badge>
+    <h4>{{ lecture.speaker.name }}</h4>
+    <p>{{ lecture.startTime }} - {{ lecture.endTime }}</p>
+    <p>Room: {{ lecture.room }}</p>
+    <br>
+    <p>{{ lecture.description }}</p>
+
+  </div>
+</ion-content>
