@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NavController, ToastController } from '@ionic/angular';
 
-import { PoPageLogin } from '@po-ui/ng-templates';
-
-import { SignupComponent } from '../signup/signup.component';
-import { TabsComponent } from '../tabs/tabs.component';
 import { UserService } from './../services/user.service';
+import { Events } from './../services/events.service';
 
 @Component({
   selector: 'page-user',
@@ -15,24 +13,24 @@ import { UserService } from './../services/user.service';
 export class LoginComponent {
 
   constructor(
-    // public events: Events,
+    public events: Events,
     public navCtrl: NavController,
     public toastCtrl: ToastController,
     private userService: UserService,
+    public router: Router
   ) { }
 
-  onLogin(form: PoPageLogin) {
-    // this.userService.onLogin(form.login, form.password)
-    //   .then(() => {
-    //     this.events.publish('user:login');
-    //     this.navCtrl.push(TabsPage);
-    //   })
-    //   .catch(() => this.createToast());
-
+  onLogin(form) {
+    this.userService.onLogin(form.login, form.password)
+      .then(() => {
+        this.events.publish('user:login');
+        this.router.navigateByUrl('/');
+      })
+      .catch(() => this.createToast());
   }
 
   onSignup() {
-    // this.navCtrl.push(SignupPage);
+    this.router.navigateByUrl('/schedule');
   }
 
   private async createToast() {

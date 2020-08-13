@@ -11,7 +11,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { PoSyncModule } from '@po-ui/ng-sync';
 import { PoStorageModule } from '@po-ui/ng-storage';
-import { PoPageLoginModule } from '@po-ui/ng-templates';
+import { PoPageLoginModule, PoTemplatesModule } from '@po-ui/ng-templates';
 import { PoModule } from '@po-ui/ng-components';
 
 import { AppComponent } from './app.component';
@@ -36,6 +36,7 @@ import { CommonModule } from '@angular/common';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
+    PoTemplatesModule,
   ],
   declarations: [AppComponent],
   providers: [

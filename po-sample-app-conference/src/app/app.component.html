@@ -5,67 +5,45 @@
       <ion-content>
 
         <ion-list lines="none">
-          <ion-list-header>
-            CONFERENCE
+          <ion-list-header class="ion-padding-start ion-text-uppercase">
+            Conference
           </ion-list-header>
 
           <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
             <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
               <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-              <ion-label>
+              <ion-label class="ion-padding-start">
                 {{p.title}}
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
 
-        <!-- <ion-list *ngIf="!loggedIn" lines="none">
-          <ion-list-header>
-            Notes
+        <!-- REMOVER COMENTÁRIO QUANDO IMPLEMENTAR NOTES -->
+        <!-- <ion-list *ngIf="loggedIn" lines="none">
+          <ion-list-header class="ion-padding-start ion-text-uppercase">
+            Tools
           </ion-list-header>
 
           <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/signup" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="person-add"></ion-icon>
-              <ion-label>
+              <ion-icon slot="start" name="document-text-outline"></ion-icon>
+              <ion-label class="ion-padding-start">
                 Notes
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list> -->
 
-        <!-- <ion-list *ngIf="!loggedIn" lines="none">
-          <ion-list-header>
+        <ion-list lines="none">
+          <ion-list-header class="ion-padding-start ion-text-uppercase">
             Account
           </ion-list-header>
 
-          <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/login" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="log-in"></ion-icon>
-              <ion-label>
-                Login
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle> -->
+          <ng-container *ngIf="loggedIn; then loggedInTemplate; else loggedOutTemplate">
+          </ng-container>
+        </ion-list>
 
-          <!-- <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/support" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="help"></ion-icon>
-              <ion-label>
-                Logout
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle> -->
-
-          <!-- <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/signup" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="person-add"></ion-icon>
-              <ion-label>
-                Signup
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list> -->
       </ion-content>
     </ion-menu>
 
@@ -74,3 +52,25 @@
   </ion-split-pane>
 
 </ion-app>
+
+<ng-template #loggedInTemplate>
+  <ion-menu-toggle autoHide="false">
+    <ion-item button (click)="logout()" detail="false">
+      <ion-icon slot="start" name="log-out"></ion-icon>
+      <ion-label class="ion-padding-start">
+        Logout
+      </ion-label>
+    </ion-item>
+  </ion-menu-toggle>
+</ng-template>
+
+<ng-template #loggedOutTemplate>
+  <ion-menu-toggle autoHide="false" *ngFor="let loggedOutPage of loggedOutPages; let i = index">
+    <ion-item [routerLink]="loggedOutPage.url" routerLinkActive="selected" routerDirection="root" detail="false">
+      <ion-icon slot="start" [name]="loggedOutPage.icon"></ion-icon>
+      <ion-label class="ion-padding-start">
+        {{ loggedOutPage.title }}
+      </ion-label>
+    </ion-item>
+  </ion-menu-toggle>
+</ng-template>
