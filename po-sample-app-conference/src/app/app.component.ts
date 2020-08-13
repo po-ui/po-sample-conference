@@ -1,35 +1,20 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Platform, MenuController, NavController } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { PoStorageService } from '@po-ui/ng-storage';
 
 import { PageInterface } from './app-page.interface';
+import { Events } from './services/events.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
-
-  logoutPage: Array<PageInterface> = [
-    {
-      title: 'Logout',
-      url: '/app/tabs',
-      icon: 'log-out'
-    }
-  ];
-
-  notePage: Array<PageInterface> = [
-    {
-      title: 'Notes',
-      url: '/app/note-list',
-      icon: 'paper'
-    }
-  ];
+export class AppComponent implements OnInit {
 
   appPages: Array<PageInterface> = [
     {
@@ -52,14 +37,14 @@ export class AppComponent {
   loggedOutPages: Array<PageInterface> = [
     {
       title: 'Login',
-      url: '/app/login',
+      url: '/login',
       icon: 'log-in'
     },
-    {
-      title: 'Signup',
-      url: '/app/signup',
-      icon: 'person-add'
-    }
+    // {
+    //   title: 'Signup',
+    //   url: '/signup',
+    //   icon: 'person-add'
+    // }
   ];
 
   loggedIn: boolean;
@@ -71,56 +56,48 @@ export class AppComponent {
     public platform: Platform,
     public splashScreen: SplashScreen,
     public statusBar: StatusBar,
-    private menu: MenuController,
     private poStorage: PoStorageService,
+    private events: Events,
   ) {
-    this.initApp();
+    this.initializeApp();
   }
 
-  ionViewWillEnter() {
+  async ngOnInit() {
     this.isLogged();
-    this.listenForLoginEvents();
   }
 
-  logOut(event) {
-    this.poStorage.remove('login').then(() => event.publish('user:logout'));
+  logout() {
+    this.poStorage.remove('login').then(() => {
+      this.events.publish('user:logout');
+    });
   }
 
-  private enableMenu(login: boolean) {
-    this.menu.enable(!login, 'loggedOutMenu');
-    this.menu.enable(login, 'loggedInMenu');
-  }
-
-  private initApp() {
+  initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
     });
+
+    this.events.get().subscribe((event) => {
+      this.listenForLoginEvents(event);
+    });
   }
 
-  private isLogged() {
-    this.poStorage.get('login').then(login => this.updateLoggedInStatus(!!login));
-  }
-
-  listenForLoginEvents() {
-    window.addEventListener('user:login', () => {
+  listenForLoginEvents(event: string) {
+    if (event === 'user:login' || event === 'user:signup') {
       this.updateLoggedInStatus(true);
-      this.enableMenu(true);
-    });
 
-    window.addEventListener('user:signup', () => {
-      this.updateLoggedInStatus(true);
-      this.enableMenu(true);
-    });
-
-    window.addEventListener('user:logout', () => {
+    } else if (event === 'user:logout') {
       this.updateLoggedInStatus(false);
-      this.enableMenu(true);
-    });
+    }
   }
 
   updateLoggedInStatus(loggedIn: boolean) {
     setTimeout(() => {
       this.loggedIn = loggedIn;
     }, 300);
+  }
+
+  private isLogged() {
+    return this.poStorage.get('login').then(loggedIn => this.updateLoggedInStatus(loggedIn));
   }
 }
