@@ -11,10 +11,11 @@ export class UserService {
 
   userModel: PoEntity;
 
-  constructor(private poSync: PoSyncService, private poStorage: PoStorageService) { }
+  constructor(private poSync: PoSyncService, private poStorage: PoStorageService) {
+    this.userModel = this.poSync.getModel('Users');
+  }
 
   async addFavoriteLecture(lectureId, loggedUser) {
-    this.userModel = this.poSync.getModel('Users');
     const user: any = await this.userModel.findById(loggedUser).exec();
     user.favoriteLectures = user.favoriteLectures || [];
 
@@ -55,7 +56,6 @@ export class UserService {
   }
 
   async getFavoriteLectures() {
-    this.userModel = this.poSync.getModel('Users');
     const loggedUser = await this.getLoggedUserId();
     const user: any = await this.userModel.findById(loggedUser).exec();
     return 'favoriteLectures' in user ? user.favoriteLectures : undefined;
@@ -66,20 +66,13 @@ export class UserService {
     return login ? login.userId : undefined;
   }
 
-  getModel() {
-    this.userModel = this.poSync.getModel('Users');
-    return this.userModel;
-  }
-
   async getLoggedUser() {
-    this.userModel = this.poSync.getModel('Users');
     const userid = await this.getLoggedUserId();
 
     return this.userModel.findById(userid).exec();
   }
 
   async getUsers() {
-    this.userModel = this.poSync.getModel('Users');
     const userData: any = await this.userModel.find().exec();
     return userData.items;
   }
@@ -95,7 +88,6 @@ export class UserService {
   }
 
   async removeFavoriteLecture(lectureId) {
-    this.userModel = this.poSync.getModel('Users');
     const loggedUser = await this.getLoggedUserId();
     const user: any = await this.userModel.findById(loggedUser).exec();
 

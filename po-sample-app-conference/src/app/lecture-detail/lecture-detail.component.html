@@ -10,9 +10,10 @@
 
 <ion-content class="ion-padding">
 
-  <ion-fab right bottom *ngIf="isLogged">
+  <!-- FUNCIONALIDADE NOTE -->
+  <!-- <ion-fab right bottom *ngIf="isLogged">
     <button ion-fab mini (click)="goToNoteDetail()"><ion-icon name="paper"></ion-icon></button>
-  </ion-fab>
+  </ion-fab> -->
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>

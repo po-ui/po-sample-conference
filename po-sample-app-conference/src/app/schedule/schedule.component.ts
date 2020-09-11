@@ -4,11 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 
 import { PoSyncService } from '@po-ui/ng-sync';
+
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { LectureService } from './../services/lecture.service';
 import { ScheduleFilterComponent } from './schedule-filter/schedule-filter.component';
 import { UserService } from './../services/user.service';
+import { Events } from '../services/events.service';
 
 @Component({
   selector: 'page-schedule',
@@ -17,7 +20,6 @@ import { UserService } from './../services/user.service';
 export class ScheduleComponent implements OnDestroy {
 
   excludeTracks: any = [];
-  favoriteSegment = 'favorites';
   filteredLectures = [];
   lectures = [];
   queryText = '';
@@ -29,21 +31,33 @@ export class ScheduleComponent implements OnDestroy {
   constructor(
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
+    public activatedRoute: ActivatedRoute,
     private lectureService: LectureService,
     private userService: UserService,
     private poSync: PoSyncService,
-    public activatedRoute: ActivatedRoute,
+    private events: Events
   ) { }
 
   ionViewWillEnter(): void {
     this.syncPrepared = this.activatedRoute.data.subscribe(() => {
       this.updateSchedule();
-      this.getUserId();
+
+      this.userId = this.userService.getLoggedUser().then(user => {
+        this.userId = user;
+      });
     });
 
     this.onSyncSubscription = this.poSync.onSync().subscribe(() => {
       this.updateSchedule();
     });
+
+    this.events.get()
+      .pipe(filter(event => event === 'user:logout'))
+      .subscribe(() => {
+        this.userId = undefined;
+
+        this.onClickTab('all');
+      });
   }
 
   ngOnDestroy(): void {
@@ -55,8 +69,10 @@ export class ScheduleComponent implements OnDestroy {
     this.lectureService.synchronize().then(() => event.target.complete());
   }
 
-  getColorTrack(color) {
-    return { 'border-left': `2px solid ${color}` };
+  onClickTab(tab: string) {
+    this.segment = tab.toLowerCase();
+
+    this.lectureFilter();
   }
 
   lectureFilter() {
@@ -67,19 +83,12 @@ export class ScheduleComponent implements OnDestroy {
       return this.queryText ? isEqualQueryText && isNotExcludeTrack : isNotExcludeTrack;
     });
 
-    if (this.segment === this.favoriteSegment) {
-      this.lectureFavoriteFilter(lectures).then(
-        (favoriteLectures) => (this.filteredLectures = favoriteLectures)
-      );
+    if (this.segment === 'favorites') {
+      this.lectureFavoriteFilter(lectures).then(favoriteLectures => {
+        this.filteredLectures = favoriteLectures;
+      });
     } else {
       this.filteredLectures = lectures;
-    }
-  }
-
-  async lecturePress() {
-    if (this.userId) {
-      const favoriteLectures = await this.userService.getFavoriteLectures();
-      // this.router.navigate(ScheduleFavoriteListComponent, { lectures: this.lectures, favoriteLectures });
     }
   }
 
@@ -98,12 +107,9 @@ export class ScheduleComponent implements OnDestroy {
     });
   }
 
-  private getUserId() {
-    this.userService.getLoggedUser().then((user) => (this.userId = user));
-  }
-
-  private async lectureFavoriteFilter(lectures) {
+  async lectureFavoriteFilter(lectures) {
     const favoriteLectures = await this.userService.getFavoriteLectures();
+
     return lectures.filter((lecture) => favoriteLectures && favoriteLectures.includes(lecture.id));
   }
 
@@ -113,41 +119,5 @@ export class ScheduleComponent implements OnDestroy {
       this.lectureFilter();
     });
   }
-
-  // async removeFavorite(slidingItem: IonItemSliding, lectureId: any, header: string) {
-  //   const alert = await this.alertCtrl.create({
-  //     header,
-  //     message: 'Would you like to remove this session from your favorites?',
-  //     buttons: [
-  //       { text: 'Cancel', handler: () => slidingItem.close() },
-  //       {
-  //         text: 'Remove',
-  //         handler: () => {
-  //           this.userService.removeFavoriteLecture(lectureId).then(() => {
-  //             this.lectureFilter();
-  //             slidingItem.close();
-  //           });
-  //         }
-  //       }
-  //     ]
-  //   });
-
-  //   await alert.present();
-  // }
-
-  // addFavorite(slidingItem: IonItemSliding, lecture) {
-  //   this.userService.addFavoriteLectureList(lecture.id).then(async () => {
-  //     const alert = await this.alertCtrl.create({
-  //       header: 'Favorite Added',
-  //       buttons: [{
-  //         text: 'OK',
-  //         handler: () => slidingItem.close()
-  //       }]
-  //     });
-  //     await alert.present();
-
-  //   }).catch(() => this.removeFavorite(slidingItem, lecture.id, lecture.title));
-
-  // }
 
 }

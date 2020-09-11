@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { Router} from '@angular/router';
 
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -56,6 +57,7 @@ export class AppComponent implements OnInit {
     public platform: Platform,
     public splashScreen: SplashScreen,
     public statusBar: StatusBar,
+    private router: Router,
     private poStorage: PoStorageService,
     private events: Events,
   ) {
@@ -88,6 +90,8 @@ export class AppComponent implements OnInit {
 
     } else if (event === 'user:logout') {
       this.updateLoggedInStatus(false);
+
+      this.router.navigate(['/schedule']);
     }
   }
 

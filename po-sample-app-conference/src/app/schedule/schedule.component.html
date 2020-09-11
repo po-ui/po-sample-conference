@@ -25,16 +25,6 @@
     </ion-searchbar>
   </ion-toolbar>
 
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="segment" (ionChange)="lectureFilter()">
-      <ion-segment-button value="all">All</ion-segment-button>
-      <ion-segment-button value="favorites" [disabled]="!userId" layout="icon-end">
-        <ion-label>Favorites</ion-label>
-        <ion-icon name="heart"></ion-icon>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
-
 </ion-header>
 
 <ion-content class="schedule">
@@ -43,38 +33,28 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list class="schedule-list" [hidden]="!lectures">
+  <po-tabs>
+    <po-tab
+      p-active
+      p-label="All"
+      (p-click)="onClickTab($event.label)">
+      <ng-container *ngTemplateOutlet="scheduleList"></ng-container>
+    </po-tab>
 
-    <ion-item-sliding
-      #slidingItem
-      *ngFor="let lecture of filteredLectures"
-      [ngStyle]="getColorTrack(lecture.track.color)"
-      (ionDrag)="lecturePress()">
-
-      <ion-item routerLink="/lecture-detail/{{lecture.id}}">
-        <ion-label>
-          <h3>{{ lecture.title }} </h3>
-          <p>
-            {{ lecture.startTime }} &mdash;
-            {{ lecture.endTime }}:
-            {{ lecture.room }}
-          </p>
-        </ion-label>
-      </ion-item>
-
-      <!-- <ion-item-options class="favorite">
-        <ion-button color="favorite" (click)="addFavorite(slidingItem, lecture)" *ngIf="segment === 'all' && userId">
-          Favorite
-        </ion-button>
-        <ion-button color="danger" (click)="removeFavorite(slidingItem, lecture.id, 'Remove Favorite')" *ngIf="segment === 'favorites' && userId">
-          Remove
-        </ion-button>
-      </ion-item-options> -->
-
-    </ion-item-sliding>
-
-  </ion-list>
-
-  <ion-list-header class="schedule-no-lectures-found" [hidden]="filteredLectures.length"> No Lectures Found </ion-list-header>
+    <po-tab
+      p-label="Favorites"
+      [p-disabled]="!userId"
+      (p-click)="onClickTab($event.label)">
+      <ng-container *ngTemplateOutlet="scheduleList"></ng-container>
+    </po-tab>
+  </po-tabs>
 
 </ion-content>
+
+<ng-template #scheduleList>
+  <app-schedule-list
+    [segment]="segment"
+    [lectures]="filteredLectures"
+    [currentUser]="userId">
+  </app-schedule-list>
+</ng-template>
