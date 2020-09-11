@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -18,7 +19,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { LectureDetailModule } from './lecture-detail/lecture-detail.module';
-import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -29,6 +29,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     IonicModule.forRoot(),
     PoModule,
+    HammerModule,
     PoStorageModule.forRoot(),
     PoSyncModule,
     LectureDetailModule,

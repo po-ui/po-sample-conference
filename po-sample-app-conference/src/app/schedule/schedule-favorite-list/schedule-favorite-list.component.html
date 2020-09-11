@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-button *ngIf="true" (click)="dismiss()">Cancel</ion-button>
+      </ion-buttons>
+  
+      <ion-title>
+        Favorite lectures
+      </ion-title>
+  
+      <ion-buttons slot="end">
+        <ion-checkbox
+          (ionChange)="selectAll()"
+          *ngIf="!favoriteAll"
+          class="schedule-selectAll"
+          [checked]="selectAllLectures">
+        </ion-checkbox>
+
+        <ion-button (click)="favoriteLectures()" strong>Done</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+
+<ion-content>
+  <ion-list class="schedule-list">
+
+    <ion-item-sliding *ngFor="let lecture of lectures">
+      <ion-item>
+        <ion-label>
+          <h3>{{ lecture.title }} </h3>
+          <p>
+            {{ lecture.startTime }} &mdash;
+            {{ lecture.endTime }}:
+            {{ lecture.room }}
+          </p>
+        </ion-label>
+        <ion-checkbox 
+          slot="end"
+          (ionChange)="addLisToFavor(lecture.id)"
+          [disabled]="favorites?.includes(lecture.id)"
+          [checked]="selectAllLectures || favorites?.includes(lecture.id)">
+        </ion-checkbox>
+      </ion-item>
+    </ion-item-sliding>
+
+  </ion-list>
+
+</ion-content>

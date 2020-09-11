@@ -10,6 +10,7 @@ import { ScheduleComponent } from './schedule.component';
 import { ScheduleRoutingModule } from './schedule.routing';
 import { ScheduleFilterComponent } from './schedule-filter/schedule-filter.component';
 import { ScheduleListComponent } from './schedule-list/schedule-list.component';
+import { ScheduleFavoriteListComponent } from './schedule-favorite-list/schedule-favorite-list.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { ScheduleListComponent } from './schedule-list/schedule-list.component';
     PoTabsModule,
     ScheduleRoutingModule
   ],
-  declarations: [ScheduleListComponent, ScheduleComponent, ScheduleFilterComponent]
+  declarations: [ScheduleFavoriteListComponent, ScheduleListComponent, ScheduleComponent, ScheduleFilterComponent]
 })
 export class ScheduleModule { }

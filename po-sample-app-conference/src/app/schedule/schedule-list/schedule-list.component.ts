@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController, ModalController } from '@ionic/angular';
 
 import { UserService } from './../../services/user.service';
+import { Router } from '@angular/router';
+import { ScheduleFavoriteListComponent } from '../schedule-favorite-list/schedule-favorite-list.component';
+import { ScheduleFilterComponent } from '../schedule-filter/schedule-filter.component';
 
 @Component({
   selector: 'app-schedule-list',
@@ -18,6 +21,8 @@ export class ScheduleListComponent implements OnInit {
   @Input() segment = 'all';
 
   constructor(
+    private router: Router,
+    private modal: ModalController,
     private userService: UserService,
     private alertCtrl: AlertController) { }
 
@@ -40,6 +45,18 @@ export class ScheduleListComponent implements OnInit {
 
     }).catch(() => this.removeFavorite(slidingItem, lecture.id, lecture.title));
 
+  }
+
+  async lecturePress() {
+    if (this.currentUser) {
+      const favorites = await this.userService.getFavoriteLectures();
+
+      const modal = await this.modal.create({
+        component: ScheduleFavoriteListComponent,
+        componentProps: { lectures: this.lectures, favorites }
+      });
+      modal.present();
+    }
   }
 
   async removeFavorite(slidingItem, lectureId: any, header: string) {

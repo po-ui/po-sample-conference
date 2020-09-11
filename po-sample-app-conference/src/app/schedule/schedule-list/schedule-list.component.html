@@ -4,7 +4,8 @@
   <ion-item-sliding
     #slidingItem
     *ngFor="let lecture of lectures"
-    [ngStyle]="getColorTrack(lecture.track.color)">
+    [ngStyle]="getColorTrack(lecture.track.color)"
+    (press)="lecturePress()">
 
     <ion-item routerLink="/lecture-detail/{{lecture.id}}">
       <ion-label>
@@ -18,7 +19,6 @@
     </ion-item>
 
     <ion-item-options side="end">
-      
       <ion-item-option *ngIf="segment === 'all' && currentUser"
         color="primary"
         (click)="addFavorite(slidingItem, lecture)">
