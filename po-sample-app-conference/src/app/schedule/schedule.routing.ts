@@ -4,16 +4,7 @@ import { NgModule } from '@angular/core';
 import { ScheduleComponent } from './schedule.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ScheduleComponent,
-    children: [
-      {
-        path: 'favorite-list',
-        loadChildren: () => import('./schedule-favorite-list/schedule-favorite-list.module').then(m => m.ScheduleFavoriteListModule)
-      }
-    ]
-  }
+  { path: '', component: ScheduleComponent }
 ];
 
 @NgModule({
