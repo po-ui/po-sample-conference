@@ -4,7 +4,7 @@ Esse repositório tem como objetivo, disponibilizar um exemplo de uma arquitetur
 
 > Este repositório e suas aplicações estão **em desenvolvimento** e ainda **não estão disponíveis** todas as funcionalidades.
 
-No exemplo do aplicativo móvel, o usuário além de poder acompanhar quem são os palestrantes e a agenda de palestras, ele pode adicionar, alterar ou remover notas sobre uma determinada palestra. Todas essas informações ficam armazenadas na API.
+No exemplo, a aplicação web funciona como um portal para o administrador da conferência, onde ele pode cadastrar, atualizar ou remover os palestrantes e as palestras. Já no aplicativo móvel, o usuário além de poder acompanhar quem são os palestrantes e a agenda de palestras, ele pode adicionar, alterar ou remover notas sobre uma determinada palestra. Todas essas informações ficam armazenadas na API, comum as duas aplicações.
 
 ## Pré-requisitos:
 
@@ -12,6 +12,14 @@ Para executar as aplicações é necessário realizar as seguintes instalações
  - [NodeJS](https://nodejs.org/en/);
  - [Angular](https://angular.io/guide/quickstart);
  - [Ionic](https://ionicframework.com/getting-started)
+
+## Executando a aplicação web
+
+```console
+$ cd po-sample-web-conference
+$ npm install
+$ ng serve
+```
 
 ## Executando a aplicação mobile (em desenvolvimento)
 

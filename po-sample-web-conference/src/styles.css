@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+.circle {
+  border-radius: 14px;
+  color: #fff;
+  display: inline-block;
+  font-family: NunitoSans-Bold;
+  font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  margin-top: 2px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 20px;
+}
+
+.title-link {
+  color: #0c9abe;
+  text-decoration: none;
+}
+
+.title-link:hover {
+  color: #097b98;
+}

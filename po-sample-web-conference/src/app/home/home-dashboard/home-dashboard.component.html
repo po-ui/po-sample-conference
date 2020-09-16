@@ -1,0 +1,9 @@
+<po-page-default p-title="Welcome">
+
+  <card-count *ngFor="let entity of entityCardList"
+    [entityCount]="entity.count"
+    [entityIcon]="entity.icon"
+    [entityName]="entity.name">
+  </card-count>
+
+</po-page-default>

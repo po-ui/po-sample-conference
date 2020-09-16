@@ -1,0 +1,12 @@
+<po-widget p-height="110">
+
+  <div class="po-sm-2 circle" [ngStyle]="{ 'background-color': lecture.track.color }"> </div>
+
+  <div class="po-sm-10">
+    <a class="title-link" [routerLink]="['/home/lectures/detail/', lecture.id]">
+      <p class="po-font-text-large-bold">{{ lecture.title }}</p>
+    </a>
+    <p class="po-font-text">{{ getCardDescription() }}</p>
+  </div>
+
+</po-widget>

@@ -1,0 +1,65 @@
+<po-page-edit
+  [p-title]="title"
+  [p-disable-submit]="formSpeaker.invalid"
+  (p-save)="save()" 
+  (p-cancel)="cancel()">
+
+  <form #formSpeaker="ngForm">
+
+    <div class="po-row">
+      <po-input
+        class="po-lg-8"
+        name="name"
+        [(ngModel)]="speaker.name"
+        p-clean
+        p-label="Name"
+        p-required>
+      </po-input>
+    </div>
+
+    <div class="po-row">
+      <po-email
+        class="po-lg-4 po-md-6"
+        name="email"
+        [(ngModel)]="speaker.email"
+        p-clean
+        p-label="Email"
+        p-required>
+      </po-email>
+
+      <po-select
+        class="po-lg-4 po-md-6"
+        name="photo"
+        [(ngModel)]="speaker.photo"
+        p-label="Photo"
+        [p-options]="photoOptions"
+        p-required>
+
+        <ng-template p-select-option-template let-option>
+
+          <div class="select select-avatar">
+            <po-avatar
+              class="po-sm-2"
+              p-size="md"
+              p-src="../../assets/images/{{option.value}}">
+            </po-avatar>
+
+            <div>{{ option.label }}</div>
+          </div>
+        </ng-template>
+      </po-select>
+    </div>
+
+    <div class="po-row">
+      <po-textarea
+        class="po-lg-8"
+        name="description"
+        [(ngModel)]="speaker.description"
+        p-label="Description"
+        p-required>
+      </po-textarea>
+    </div>
+
+  </form>
+
+</po-page-edit>

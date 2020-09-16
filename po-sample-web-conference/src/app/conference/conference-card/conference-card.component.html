@@ -1,0 +1,39 @@
+<po-widget class="po-sm-12">
+
+  <div class="po-row">
+    <div class="po-md-12 text-align">
+      <div class="po-font-title">{{ conference.title }}</div>
+    </div>
+  </div>
+
+  <hr>
+  <br>
+
+  <div class="po-row">
+    <div class="po-md-6">
+      <po-info
+        p-label="Location"
+        [p-value]="conference.location">
+      </po-info>
+    </div>
+
+    <div class="po-md-6">
+      <po-info
+        p-label="Date"
+        [p-value]="getToLocaleDateString()">
+      </po-info>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="po-row">
+    <div class="po-md-12">
+      <po-info
+        p-label="Description"
+        [p-value]="conference.description">
+      </po-info>
+    </div>
+  </div>
+
+</po-widget>
