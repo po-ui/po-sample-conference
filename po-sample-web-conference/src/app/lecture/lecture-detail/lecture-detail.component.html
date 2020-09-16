@@ -1,0 +1,74 @@
+<po-page-detail 
+  [p-title]="title"
+  (p-back)="back()" 
+  (p-remove)="remove()" 
+  (p-edit)="edit()">
+
+  <po-widget class="po-md-12">
+
+    <div class="po-row">
+      <div class="po-font-subtitle">
+        {{ lecture.title }}
+      </div>
+    </div>
+
+    <hr>
+    <br>
+
+    <div class="po-row">
+      <po-avatar
+        p-size="sm"
+        p-src="../../assets/images/{{ lecture.speaker?.photo }}">
+      </po-avatar>
+
+      <po-info
+        class="speaker-padding"
+        p-label="Speaker"
+        p-orientation="horizontal"
+        [p-value]="lecture.speaker?.name">
+      </po-info>
+    </div>
+
+    <div class="po-row">
+      <div
+        class="po-sm-2 circle circle-border"
+        [ngStyle]="{ 'background-color': lecture.track?.color }"> </div>
+
+      <po-info
+        class="track-padding"
+        p-label="Track"
+        p-orientation="horizontal"
+        [p-value]="lecture.track?.name">
+      </po-info>
+    </div>
+
+    <br>
+
+    <div class="po-row">
+      <po-info
+        class="po-md-2"
+        p-label="Initial hour"
+        [p-value]="lecture.startTime">
+      </po-info>
+
+      <po-info
+        class="po-md-2"
+        p-label="End hour"
+        [p-value]="lecture.endTime">
+      </po-info>
+
+      <po-info
+        class="po-md-2"
+        p-label="Room"
+        [p-value]="lecture.room">
+      </po-info>
+
+      <po-info
+        class="po-md-6"
+        p-label="Description"
+        [p-value]="lecture.description">
+      </po-info>
+    </div>
+  </po-widget>
+
+</po-page-detail>

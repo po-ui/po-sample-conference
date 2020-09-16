@@ -1,0 +1,41 @@
+<po-page-detail
+  [p-title]="title"
+  (p-back)="back()" 
+  (p-remove)="remove()" 
+  (p-edit)="edit()">
+
+  <po-widget class="po-xl-12">
+
+    <div class="po-md-8">
+      <po-avatar
+        class="po-xl-4 po-lg-3"
+        p-size="xl"
+        p-src="../../assets/images/{{ speaker.photo }}">
+      </po-avatar>
+
+      <po-info
+        class="po-xl-8 po-lg-9"
+        p-label="Name"
+        [p-value]="speaker.name">
+      </po-info>
+
+      <po-info
+        class="po-xl-8 po-lg-9"
+        p-label="Email"
+        [p-value]="speaker.email">
+      </po-info>
+
+      <po-info
+        class="po-xl-8 po-lg-9"
+        p-label="Description"
+        [p-value]="speaker.description">
+      </po-info>
+    </div>
+
+  </po-widget>
+
+  <div *ngFor="let lecture of lectures" class="po-xl-4 po-md-6">
+    <lecture-card [lecture]="lecture"></lecture-card>
+  </div>
+
+</po-page-detail>

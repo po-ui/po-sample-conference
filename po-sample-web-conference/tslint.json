@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "@po-ui/ng-tslint"
+  ],
+  "rules": {
+
+    "ban": [
+      true,
+      { "name": "fit", "message": "Please remove 'fit' in file tests." },
+      { "name": "xit", "message": "Please remove 'xit' in file tests." },
+      { "name": "fdescribe", "message": "Please remove 'fdescribe' in file tests." },
+      { "name": "xdescribe", "message": "Please remove 'xdescribe' in file tests." }
+    ],
+    "deprecation": {
+      "severity": "warning"
+    },
+
+    // Validar Sonar
+    "object-literal-key-quotes": false
+  }
+}

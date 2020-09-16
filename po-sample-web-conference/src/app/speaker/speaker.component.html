@@ -1,0 +1,20 @@
+<po-page-list
+  p-title="Speakers"
+  [p-actions]="actions"
+  [p-filter]="filter">
+  
+  <ng-template [ngIf]="filteredSpeakers?.length" [ngIfElse]="speakersNotFound">
+    <div *ngFor="let speaker of filteredSpeakers" class="po-xl-4 po-md-6 padding">
+      <speaker-card [speaker]="speaker"></speaker-card>
+    </div>
+  </ng-template>
+
+  <ng-template #speakersNotFound>
+    <po-widget class="po-offset-lg-4 po-lg-4">
+      <p class="po-font-text-large text-lecture-not-found">
+        There is no speaker available!
+      </p>
+    </po-widget>
+  </ng-template>
+
+</po-page-list>

@@ -1,0 +1,106 @@
+<po-page-edit
+  [p-title]="title"
+  [p-disable-submit]="formLecture.invalid"
+  (p-save)="save()" 
+  (p-cancel)="cancel()">
+
+  <form #formLecture="ngForm">
+
+    <div class="po-row">
+      <po-input
+        class="po-lg-8"
+        name="title"
+        [(ngModel)]="lecture.title"
+        p-clean
+        p-label="Title"
+        p-required>
+      </po-input>
+    </div>
+
+    <div class="po-row">
+      <po-select
+        class="po-lg-5 po-md-8"
+        name="speaker"
+        [(ngModel)]="lecture.speakerId"
+        p-label="Speaker"
+        [p-options]="speakerOptions"
+        p-required>
+
+        <ng-template p-select-option-template let-option>
+          <div class="select select-avatar">
+            <po-avatar
+              class="po-md-1"
+              p-size="md"
+              p-src="../../assets/images/{{ getSpeakerImage(option.value) }}">
+            </po-avatar>
+
+            <div>{{ option.label }}</div>
+          </div>
+        </ng-template>
+
+      </po-select>
+
+      <po-select
+        class="po-lg-3 po-md-4"
+        name="track"
+        [(ngModel)]="lecture.trackId"
+        p-label="Track"
+        [p-options]="trackOptions"
+        p-required>
+
+        <ng-template p-select-option-template let-option>
+          <div class="select select-track">
+            <div class="po-lg-2 po-md-2 po-sm-2 circle" [ngStyle]="{ 'background-color': getTrackColor(option.value) }"> </div>
+
+            <div>{{ option.label }}</div>
+          </div>
+        </ng-template>
+      </po-select>
+    </div>
+
+    <div class="po-row">
+      <po-input
+        class="po-lg-2 po-md-4 po-sm-6"
+        name="startTime"
+        [(ngModel)]="lecture.startTime"
+        p-clean
+        p-label="Initial hour"
+        p-mask="99:99:99"
+        p-pattern="^(2[0-3]|[01][0-9]):?([0-5][0-9]):?([0-5][0-9])$"
+        p-required>
+      </po-input>
+
+      <po-input
+        class="po-lg-2 po-md-4 po-sm-6"
+        name="endTime"
+        [(ngModel)]="lecture.endTime"
+        p-clean
+        p-label="End hour"
+        p-mask="99:99:99"
+        p-pattern="^(2[0-3]|[01][0-9]):?([0-5][0-9]):?([0-5][0-9])$"
+        p-required>
+      </po-input>
+
+      <po-input
+        class="po-lg-4"
+        name="room"
+        [(ngModel)]="lecture.room"
+        p-clean
+        p-label="Room"
+        p-required>
+      </po-input>
+  </div>
+
+    <div class="po-row">
+      <po-textarea
+        class="po-lg-8"
+        name="description"
+        [(ngModel)]="lecture.description"
+        p-label="Description"
+        p-required>
+      </po-textarea>
+    </div>
+
+  </form>
+
+</po-page-edit>

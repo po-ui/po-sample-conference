@@ -1,0 +1,23 @@
+<po-widget
+  p-height="200"
+  p-primary-label="Lectures"
+  p-secondary-label="Edit"
+  (p-primary-action)="detail()"
+  (p-secondary-action)="edit()">
+
+  <a [routerLink]="['/home/speakers/detail/', speaker.id]">
+    <po-avatar
+      class="po-xl-4 po-lg-3"
+      p-size="lg"
+      p-src="../../assets/images/{{ speaker.photo }}">
+    </po-avatar>
+  </a>
+
+  <div class="po-xl-8 po-lg-9 card-description">
+    <a class="title-link" [routerLink]="['/home/speakers/detail/', speaker.id]">
+      <p class="po-font-text-large-bold">{{ speaker.name }}</p>
+    </a>
+    <p class="po-font-text">{{ speaker.email }}</p>
+  </div>
+
+</po-widget>

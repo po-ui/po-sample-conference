@@ -1,0 +1,58 @@
+<po-page-list
+  p-title="Lectures"
+  [p-actions]="actions"
+  [p-filter]="filter">
+
+  <ng-template [ngIf]="lecturesCache?.length" [ngIfElse]="lecturesNotFound">
+    <div *ngFor="let lecture of lecturesCache" class="po-xl-4 po-md-6">
+      <lecture-card [lecture]="lecture"></lecture-card>
+    </div>
+  </ng-template>
+
+  <ng-template #lecturesNotFound>
+    <po-widget
+      class="po-offset-lg-4 po-lg-4">
+      <p class="po-font-text-large text-lecture-not-found">
+        There are no lectures available!
+      </p>
+    </po-widget>
+  </ng-template>
+
+</po-page-list>
+
+<po-modal
+  #lectureFilterModal
+  p-size="sm"
+  p-title="Filter"
+  [p-primary-action]="confirm"
+  [p-secondary-action]="cancel">
+
+  <po-switch
+    class="po-sm-12 switch-display-all"
+    name="display-all"
+    [(ngModel)]="displayAll"
+    [p-label-position]="labelPosition"
+    p-label-off="Mostrar todos"
+    p-label-on="Mostrar todos"
+    (p-change)="selectAllTracks()"
+    ngDefaultControl>
+  </po-switch>
+
+  <div class="po-row" *ngFor="let track of tracks">
+    <div
+      class="po-sm-1 circle circle-border"
+      [ngStyle]="{ 'background-color': track.color }"> </div>
+
+    <po-switch
+      class="po-sm-11"
+      name="switch-{{ track.id }}-{{ track.name }}"
+      [(ngModel)]="track.model"
+      [p-label-position]="labelPosition"
+      [p-label-off]="track.name"
+      [p-label-on]="track.name"
+      (p-change)="selectTrack(track.id)"
+      ngDefaultControl>
+    </po-switch>
+  </div>
+
+</po-modal>
