@@ -23,11 +23,11 @@ export class AppComponent implements OnInit {
       url: '/schedule',
       icon: 'calendar'
     },
-    // {
-    //   title: 'Speakers',
-    //   url: '/speakers',
-    //   icon: 'people'
-    // },
+    {
+      title: 'Speakers',
+      url: '/speakers',
+      icon: 'people'
+    },
     {
       title: 'About',
       url: '/about',

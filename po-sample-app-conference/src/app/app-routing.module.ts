@@ -28,7 +28,15 @@ const routes: Routes = [
       {
         path: 'login',
         loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
-      }
+      },
+      {
+        path: 'speakers',
+        loadChildren: () => import('./speaker-list/speaker-list.module').then(m => m.SpeakerListModule),
+      },
+      {
+        path: 'speaker-detail/:speakerId',
+        loadChildren: () => import('./speaker-detail/speaker-detail.module').then(m => m.SpeakerDetailModule),
+      },
     ]
   },
   // {
@@ -36,9 +44,6 @@ const routes: Routes = [
   //   loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsModule),
   // },
   // {
-  //   path: 'speakers',
-  //   loadChildren: () => import('./speaker-list/speaker-list.module').then(m => m.SpeakerListModule),
-  // },
   // {
   //   path: 'signup',
   //   loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignUpModule)

@@ -1,24 +1,50 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>{{speaker?.name}}</ion-title>
-  </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding class="speaker-detail">
+<ion-content>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <div text-center *ngIf="speaker">
-    <img src="../../assets/imgs/speakers-avatar/{{ speaker.photo }}" class="speaker-avatar" [alt]="speaker.name"><br>
+  <ion-card *ngIf="speaker">
+    <ion-card-header class="ion-padding-top">
+      <ion-avatar class="speaker-avatar">
+        <img src="../../assets/imgs/speakers-avatar/{{ speaker.photo }}" alt="Speaker profile pic">
+      </ion-avatar>
+      <ion-card-subtitle class="ion-text-center">Speaker</ion-card-subtitle>
+      <ion-card-title class="ion-text-center">{{ speaker.name }}</ion-card-title>
+    </ion-card-header>
 
-    <button ion-button icon-only clear small icon-left (click)="sendMail()">
-      <ion-icon name="mail"></ion-icon>
-      {{ speaker.email }}
-    </button>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="ion-text-center">
+           {{ speaker.email }}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center ion-margin-vertical">
+            {{ speaker?.description }}
+          </ion-col>
+        </ion-row>
 
-  </div>
+        <ion-row class="ion-align-self-center">
+          <ion-col>
+            <ion-button expand="block" class="ion-margin-vertical" (click)="sendMail()">
+              <ion-icon class="ion-padding-end" slot="start" name='mail'></ion-icon>
+                Send mail
+            </ion-button>
+          </ion-col>
+        </ion-row>
 
-  <p>{{speaker?.description}}</p>
+      </ion-grid>
+    </ion-card-content>
+
+  </ion-card>
 </ion-content>

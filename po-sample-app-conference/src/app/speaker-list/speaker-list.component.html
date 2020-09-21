@@ -1,59 +1,45 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Speakers</ion-title>
-  </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-margin-start">Speakers</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content class="outer-content speakers-content">
+<ion-content>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-list [virtualScroll]="speakers">
-    <ion-grid fixed>
-      <ion-row align-items-stretch>
+  <ion-virtual-scroll [items]="speakers" approxItemHeight="457px">
 
-        <ion-col col-12 col-md-6 align-self-stretch align-self-center *virtualItem="let speaker" approxItemHeight="457px">
+    <ion-list *virtualItem="let speaker; let itemBounds = bounds;">
 
-          <ion-card class="speaker-card">
-            <ion-card-header>
-              <button ion-item detail-none (click)="goToSpeakerDetail(speaker)">
-                <ion-avatar item-start>
-                  <img src="../../assets/imgs/speakers-avatar/{{ speaker.photo }}" alt="Speaker profile pic">
-                </ion-avatar>
-                <span class="speaker-name">{{ speaker.name }}</span>
-              </button>
-            </ion-card-header>
+      <ion-item lines="full" class="ion-margin-top">
+        <ion-avatar slot="start">
+          <img src="../../assets/imgs/speakers-avatar/{{ speaker.photo }}" alt="Speaker profile pic">
+        </ion-avatar>
 
-            <ion-card-content class="outer-content">
-              <ion-list>
-                <button ion-item *ngFor="let lecture of speaker.lectures" (click)="goToLectureDetail(lecture)">
-                  <h3>{{ lecture.title }}</h3>
-                </button>
+        <ion-label>
+          <h1 class="ion-padding-start">{{ speaker.name }}</h1>
+          <div *ngFor="let lecture of speaker.lectures">
+            <a class="ion-padding-start lecture-link" routerLink="/lecture-detail/{{ lecture.id }}">{{ lecture.title }}</a>
+          </div>
 
-                <button ion-item (click)="goToSpeakerDetail(speaker)">
-                  <h3>About {{speaker.name }}</h3>
-                </button>
-              </ion-list>
-            </ion-card-content>
+          <ion-button class="ion-margin-start ion-margin-vertical" size="small" routerLink="/speaker-detail/{{speaker.id}}">
+            <ion-icon class="ion-padding-end" name='information-circle'></ion-icon>
+            About
+          </ion-button>
 
-            <ion-row no-padding>
-              <ion-col col-12 col-lg-auto text-center text-lg-right>
-                <button ion-button clear small color="primary" icon-start (click)="openContact(speaker)">
-                  <ion-icon name='chatboxes'></ion-icon>
-                  Contact
-                </button>
-              </ion-col>
-            </ion-row>
+          <ion-button class="ion-margin-start ion-margin-top ion-margin-vertical"  size="small" (click)="openContact(speaker)">
+            <ion-icon class="ion-padding-end" name='mail'></ion-icon>
+            Contact
+          </ion-button>
+        </ion-label>
+      </ion-item>
 
-          </ion-card>
-
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-list>
+    </ion-list>
+  </ion-virtual-scroll>
 </ion-content>

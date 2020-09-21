@@ -1,13 +1,7 @@
-
-.speaker-detail img {
-  max-width: 140px;
-  border-radius: 50%;
-}
-
-.speaker-detail p {
-  color: #60646B;
-}
-
 .speaker-avatar {
-  width: 100px;
+  width:100% !important;  
+  height : 100% !important;  
+  max-width: 100px !important;
+  max-height: 100px !important;
+  margin: 0 auto;
 }
