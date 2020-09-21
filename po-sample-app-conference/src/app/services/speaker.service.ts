@@ -9,6 +9,10 @@ export class SpeakerService {
 
   constructor(private poSync: PoSyncService) {}
 
+  async getSpeaker(speakerId) {
+    return await this.poSync.getModel('Speakers').findById(speakerId).exec();
+  }
+
   async getSpeakers() {
     const speakersResponse: any = await this.poSync.getModel('Speakers').find().sort('name').exec();
     return speakersResponse.items;

@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-
-import { NavController, NavParams } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 import { PoSyncService } from '@po-ui/ng-sync';
 import { Subscription } from 'rxjs';
@@ -9,24 +8,32 @@ import { SpeakerService } from './../services/speaker.service';
 
 @Component({
   selector: 'page-speaker-detail',
-  templateUrl: 'speaker-detail.component.html'
+  templateUrl: 'speaker-detail.component.html',
+  styleUrls: ['speaker-detail.component.scss'],
+
 })
 export class SpeakerDetailComponent implements OnDestroy {
 
   speaker;
+  speakerId;
+  syncPreparedSubscription: Subscription;
   onSyncSubscription: Subscription;
 
+
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    public activatedRoute: ActivatedRoute,
     private speakerService: SpeakerService,
     private poSync: PoSyncService,
+
   ) { }
 
   ionViewWillEnter() {
-    this.loadSpeaker();
+    this.syncPreparedSubscription = this.activatedRoute.data.subscribe(() => {
+      this.speakerId = this.activatedRoute.snapshot.paramMap.get('speakerId');
+      this.loadSpeaker(this.speakerId);
+    });
 
-    this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.loadSpeaker());
+    this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.loadSpeaker(this.speakerId));
   }
 
   ngOnDestroy(): void {
@@ -41,8 +48,9 @@ export class SpeakerDetailComponent implements OnDestroy {
     window.open('mailto:', this.speaker.email);
   }
 
-  private loadSpeaker() {
-    this.poSync.getModel('Speakers').findById(this.navParams.data.speakerId).exec().then(speaker => {
+  private loadSpeaker(speakerId) {
+
+    this.speakerService.getSpeaker(speakerId).then(speaker => {
       this.speaker = speaker;
     });
   }
