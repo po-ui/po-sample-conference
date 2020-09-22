@@ -1,15 +1,18 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Signup</ion-title>
-  </ion-navbar>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-margin-start">Signup</ion-title>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content class="login-page">
+<ion-content>
 
   <po-page-login
+    p-logo="https://po-ui.io/assets/po-logos/po_color.svg"
+    p-product-name="Conference"
     [p-literals]="customLiterals"
     p-hide-remember-user
     (p-login-submit)="onSignup($event)">

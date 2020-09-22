@@ -34,7 +34,7 @@ export class ScheduleFavoriteListComponent {
   }
 
   addLisToFavor(lectureId) {
-    const indexLecture = this.lecturesListToFavor.indexOf(lectureId);
+    const indexLecture = this.lecturesListToFavor?.indexOf(lectureId);
 
     if (indexLecture < 0) {
       this.lecturesListToFavor.push(lectureId);
@@ -44,7 +44,7 @@ export class ScheduleFavoriteListComponent {
   }
 
   checkFavoriteAll() {
-    return !this.lectures.some(lecture => this.favorites.indexOf(lecture.id) < 0);
+    return !this.lectures.some(lecture => this.favorites?.indexOf(lecture.id) < 0);
   }
 
   favoriteLectures() {

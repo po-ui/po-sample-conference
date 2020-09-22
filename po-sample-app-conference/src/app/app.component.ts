@@ -41,11 +41,11 @@ export class AppComponent implements OnInit {
       url: '/login',
       icon: 'log-in'
     },
-    // {
-    //   title: 'Signup',
-    //   url: '/signup',
-    //   icon: 'person-add'
-    // }
+    {
+      title: 'Signup',
+      url: '/signup',
+      icon: 'person-add'
+    }
   ];
 
   loggedIn: boolean;
