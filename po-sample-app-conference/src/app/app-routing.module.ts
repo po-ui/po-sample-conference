@@ -30,13 +30,17 @@ const routes: Routes = [
         loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
       },
       {
+        path: 'signup',
+        loadChildren: () => import('./signup/signup.module').then(m => m.SignupModule)
+      },
+      {
         path: 'speakers',
         loadChildren: () => import('./speaker-list/speaker-list.module').then(m => m.SpeakerListModule),
       },
       {
         path: 'speaker-detail/:speakerId',
         loadChildren: () => import('./speaker-detail/speaker-detail.module').then(m => m.SpeakerDetailModule),
-      },
+      }
     ]
   },
   // {
@@ -44,10 +48,6 @@ const routes: Routes = [
   //   loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsModule),
   // },
   // {
-  // {
-  //   path: 'signup',
-  //   loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignUpModule)
-  // },
   // {
   //   path: 'app',
   //   loadChildren: () => import('./pages/tabs-page/tabs-page.module').then(m => m.TabsModule)

@@ -29,10 +29,6 @@ export class LoginComponent {
       .catch(() => this.createToast());
   }
 
-  onSignup() {
-    this.router.navigateByUrl('/schedule');
-  }
-
   private async createToast() {
     const toast = await this.toastCtrl.create({
       message: 'User or password are incorrect',

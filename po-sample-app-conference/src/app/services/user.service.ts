@@ -100,7 +100,7 @@ export class UserService {
     return this.poSync.sync();
   }
 
-  private logIn(foundUser) {
+  logIn(foundUser) {
     return this.poStorage.set('login', { userId: foundUser.id });
   }
 
