@@ -1,42 +1,42 @@
 <ion-header>
-
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-icon name="menu"></ion-icon>
-      <ion-back-button></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Notes</ion-title>
+    <ion-title class="ion-margin-start">Notes</ion-title>
   </ion-toolbar>
-
-  <!-- <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Notes</ion-title>
-  </ion-navbar> -->
 </ion-header>
 
-<ion-content padding [ngClass]="{ 'notes-content': notes.length }">
+<ion-content class="ion-padding">
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngFor="let note of notes" (click)="goToNoteDetail(note.lectureId)">
-    <ion-card-header>
-      <span class="notes-title">{{ note.title }}</span>
-      <span *ngIf="note.updatedDate" class="notes-updatedDate">{{ note.updatedDate | date }} updated</span>
-      <span *ngIf="!note.updatedDate" class="notes-updatedDate-offline">
-        <ion-icon name="sync"></ion-icon>
-      </span>
+  <ion-card *ngFor="let note of notes" routerLink="/note-detail/{{note.lectureId}}" lines="full" class="ion-margin-top">
+    <ion-card-header class="ion-padding-bottom">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="ion-text-start ion-padding">
+              <span class="notes-title">{{ note.title }}</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="ion-text-end ion-padding">
+              <span *ngIf="note.updatedDate" class="notes-updated-date">{{ note.updatedDate | date }} updated</span>
+              <span *ngIf="!note.updatedDate" class="notes-updated-date-offline">
+                <ion-icon name="sync"></ion-icon>
+              </span> 
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-header>
-    <ion-list>
-      <button ion-item class="notes-button">
-        {{ note.text }}
-      </button>
-    </ion-list>
+
+    <ion-card-content>
+      <p class="notes-text">{{ note.text }}</p>
+    </ion-card-content>
+  
   </ion-card>
-
-  <ion-list-header class="schedule-no-lectures-found" [hidden]="notes.length"> No saved notes </ion-list-header>
-
 </ion-content>

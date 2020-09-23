@@ -46,10 +46,6 @@ export class LectureDetailComponent implements OnDestroy {
     this.lectureService.synchronize().then(() => event.target.complete());
   }
 
-  goToNoteDetail() {
-    // this.navCtrl.push(NoteDetailPage, { lectureId: this.lecture.id });
-  }
-
   private loadLecture(lectureId) {
     this.lectureService.getLecture(lectureId).then(lecture => {
       this.lecture = lecture;

@@ -1,34 +1,51 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { AlertController, NavController, NavParams, ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
-import { NoteListComponent } from './../note-list/note-list.component';
 import { NoteService } from './../services/note.service';
 import { UserService } from './../services/user.service';
+import { Subscription } from 'rxjs';
+import { PoSyncService } from '@po-ui/ng-sync';
 
 @Component({
   selector: 'page-note-detail',
-  templateUrl: 'note-detail.component.html'
+  templateUrl: 'note-detail.component.html',
+  styleUrls: ['note-detail.component.scss'],
 })
 export class NoteDetailComponent {
-  note = { title: 'New note', text: null, lectureId: undefined, userId: undefined };
+  lectureId;
+  note = { id: undefined, title: 'New note', text: null, lectureId: undefined, userId: undefined };
+  onSyncSubscription: Subscription;
+  syncPreparedSubscription: Subscription;
 
   constructor(
     public alertCtrl: AlertController,
-    public navCtrl: NavController,
-    public navParams: NavParams,
+    public activatedRoute: ActivatedRoute,
     public toastCtrl: ToastController,
+    private poSync: PoSyncService,
+    private router: Router,
     private noteService: NoteService,
-    private userService: UserService,
+    private userService: UserService
   ) { }
 
-  ionViewDidLoad() {
-    this.initNote();
+  ionViewWillEnter() {
+    this.syncPreparedSubscription = this.activatedRoute.data.subscribe(() => {
+      this.lectureId = this.activatedRoute.snapshot.paramMap.get('noteId');
+      this.loadNote(this.lectureId);
+    });
+
+    this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.loadNote(this.lectureId));
+  }
+
+  ngOnDestroy(): void {
+    this.syncPreparedSubscription.unsubscribe();
+    this.onSyncSubscription.unsubscribe();  
   }
 
   async alertRemoveNote() {
     const alert = await this.alertCtrl.create({
-      // title: `Remove ${this.note.title}`,
+      header: `Remove ${this.note.title}`,
       message: 'Would you like to remove this note?',
       buttons: [
         { text: 'Cancel', handler: () => { } },
@@ -39,7 +56,7 @@ export class NoteDetailComponent {
   }
 
   async saveNote() {
-    this.note.lectureId = this.navParams.data.lectureId;
+    this.note.lectureId = this.lectureId;
     this.note.userId = await this.userService.getLoggedUserId();
 
     await this.noteService.save(this.note);
@@ -50,17 +67,18 @@ export class NoteDetailComponent {
       position: 'bottom'
     });
     toast.present();
-    // this.navCtrl.setRoot(NoteListPage);
+
+    this.router.navigate(['/notes']);
   }
 
-  private async initNote() {
-    const note: any = await this.noteService.getNote(this.navParams.data.lectureId);
+  private async loadNote(lectureId) {
+    const note: any = await this.noteService.getNote(lectureId);
     this.note = note || this.note;
   }
 
   private async removeNote() {
     await this.noteService.remove(this.note);
-    // this.navCtrl.setRoot(NoteListPage);
+    this.router.navigate(['/notes']);
   }
 
 }

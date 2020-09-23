@@ -1,19 +1,17 @@
 <ion-header>
-
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <!-- FUNCIONALIDADE NOTE -->
-  <!-- <ion-fab right bottom *ngIf="isLogged">
-    <button ion-fab mini (click)="goToNoteDetail()"><ion-icon name="paper"></ion-icon></button>
-  </ion-fab> -->
+  <ion-fab vertical="bottom" horizontal="end" *ngIf="isLogged" routerLink="/note-detail/{{lectureId}}">
+    <ion-fab-button>
+      <ion-icon name="document"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
