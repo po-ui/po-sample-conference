@@ -1,37 +1,36 @@
 <ion-header>
-
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-icon name="menu"></ion-icon>
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title class="ion-margin-start">
       <ion-input type="text" [(ngModel)]="note.title"></ion-input>
     </ion-title>
   </ion-toolbar>
-
-  <!-- <ion-navbar color="primary">
-    <ion-title>
-      <ion-input type="text" [(ngModel)]="note.title"></ion-input>
-    </ion-title>
-  </ion-navbar> -->
 </ion-header>
 
-<ion-content padding>
 
-  <ion-fab right top edge *ngIf="note.id">
-    <button ion-fab mini color="dark"><ion-icon name="more"></ion-icon></button>
+<ion-content class="ion-padding">
+  <textarea class="note" [(ngModel)]="note.text" autofocus></textarea>
 
-    <ion-fab-list side="bottom">
-      <button ion-fab (click)="saveNote()" class="note-more"><ion-icon name="checkmark"></ion-icon></button>
-      <button ion-fab (click)="alertRemoveNote()"><ion-icon name="trash" class="note-more-trash"></ion-icon></button>
+  <ion-fab vertical="top" horizontal="end" slot="fixed" *ngIf="note.id">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list class="ionic-fab-list" side="bottom">
+      <ion-fab-button (click)="saveNote()" class="ionic-fab-list-item" color="light">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="alertRemoveNote()" class="ionic-fab-list-item" color="light">
+        <ion-icon class="note-more-trash" name="trash"></ion-icon>
+      </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
 
-  <ion-fab right top edge *ngIf="!note.id">
-    <button ion-fab mini color="dark" (click)="saveNote()"><ion-icon name="checkmark"></ion-icon></button>
+  <ion-fab vertical="top" horizontal="end" *ngIf="!note.id">
+    <ion-fab-button (click)="saveNote()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
   </ion-fab>
-
-  <textarea class="note" [(ngModel)]="note.text" autofocus></textarea>
 </ion-content>
-

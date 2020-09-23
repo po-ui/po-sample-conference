@@ -17,6 +17,8 @@ import { Events } from './services/events.service';
 })
 export class AppComponent implements OnInit {
 
+  notePage = { title: 'Notes', url: '/notes', icon: 'list-outline' };
+
   appPages: Array<PageInterface> = [
     {
       title: 'Schedule',

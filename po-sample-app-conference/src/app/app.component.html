@@ -19,21 +19,20 @@
           </ion-menu-toggle>
         </ion-list>
 
-        <!-- REMOVER COMENTÁRIO QUANDO IMPLEMENTAR NOTES -->
-        <!-- <ion-list *ngIf="loggedIn" lines="none">
-          <ion-list-header class="ion-padding-start ion-text-uppercase">
-            Tools
-          </ion-list-header>
-
-          <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/signup" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="document-text-outline"></ion-icon>
+        <ion-menu-toggle autoHide="false">
+          <ion-list *ngIf="loggedIn" lines="none">
+            <ion-list-header class="ion-padding-start ion-text-uppercase">
+              Tools
+            </ion-list-header>
+  
+            <ion-item [routerLink]="notePage.url" routerLinkActive="selected" routerDirection="root" detail="false">
+              <ion-icon slot="start" [name]="notePage.icon"></ion-icon>
               <ion-label class="ion-padding-start">
-                Notes
+                {{notePage.title}}
               </ion-label>
             </ion-item>
-          </ion-menu-toggle>
-        </ion-list> -->
+          </ion-list>
+        </ion-menu-toggle>
 
         <ion-list lines="none">
           <ion-list-header class="ion-padding-start ion-text-uppercase">

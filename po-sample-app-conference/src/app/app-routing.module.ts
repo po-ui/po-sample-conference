@@ -40,23 +40,17 @@ const routes: Routes = [
       {
         path: 'speaker-detail/:speakerId',
         loadChildren: () => import('./speaker-detail/speaker-detail.module').then(m => m.SpeakerDetailModule),
+      },
+      {
+        path: 'notes',
+        loadChildren: () => import('./note-list/note-list.module').then(m => m.NoteListModule),
+      },
+      {
+        path: 'note-detail/:noteId',
+        loadChildren: () => import('./note-detail/note-detail.module').then(m => m.NoteDetailModule),
       }
     ]
   },
-  // {
-  //   path: 'app',
-  //   loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsModule),
-  // },
-  // {
-  // {
-  //   path: 'app',
-  //   loadChildren: () => import('./pages/tabs-page/tabs-page.module').then(m => m.TabsModule)
-  // },
-  // {
-  //   path: 'tutorial',
-  //   loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule),
-  //   canLoad: [CheckTutorial]
-  // }
 ];
 
 

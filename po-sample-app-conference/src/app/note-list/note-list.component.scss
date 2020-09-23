@@ -1,31 +1,18 @@
-.notes-content {
-  background-color: #ececec;
-}
-
-.notes-button {
-  color: rgba(5, 45, 62, 0.6);
-}
-
-.notes-updatedDate, .notes-updatedDate-offline {
-  float: right;
-  width: 40%;
-  text-align: right;
-}
-
-.notes-updatedDate {
+.notes-updated-date {
   color: gray;
   font-size: 10px;
 }
 
-.notes-updatedDate-offline {
+.notes-updated-date-offline {
   color: #ce9200;
   font-size: 14px;
 }
 
 .notes-title {
-  float: left;
-  width: 60%;
-  padding-right: 10px;
+  font-weight: bold;
+}
+
+.notes-title, .notes-text {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
