@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { PoPageLogin, PoPageLoginLiterals } from '@po-ui/ng-templates';
-import { PoStorageService } from '@po-ui/ng-storage';
 import { PoSyncService } from '@po-ui/ng-sync';
 
 import { UserService } from './../services/user.service';
@@ -22,7 +21,6 @@ export class SignupComponent {
 
   constructor(
     private events: Events,
-    private poStorage: PoStorageService,
     private poSync: PoSyncService,
     private userService: UserService,
     private router: Router) {

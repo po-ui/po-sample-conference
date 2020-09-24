@@ -12,7 +12,7 @@ import { SpeakerService } from './../services/speaker.service';
   templateUrl: 'speaker-list.component.html',
   styleUrls: ['speaker-list.component.scss']
 })
-export class SpeakerListComponent implements OnDestroy {
+export class SpeakerListComponent {
 
   speakers = [];
   onSyncSubscription: Subscription;
@@ -30,7 +30,7 @@ export class SpeakerListComponent implements OnDestroy {
     this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.getSpeakers());
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave() {
     this.onSyncSubscription.unsubscribe();
   }
 

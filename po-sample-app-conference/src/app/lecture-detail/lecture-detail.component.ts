@@ -11,7 +11,7 @@ import { LectureService } from '../services/lecture.service';
   selector: 'page-lecture-detail',
   templateUrl: 'lecture-detail.component.html'
 })
-export class LectureDetailComponent implements OnDestroy {
+export class LectureDetailComponent {
 
   lecture;
   isLogged = false;
@@ -37,7 +37,7 @@ export class LectureDetailComponent implements OnDestroy {
     this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.loadLecture(this.lectureId));
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave() {
     this.syncPreparedSubscription.unsubscribe();
     this.onSyncSubscription.unsubscribe();
   }

@@ -10,7 +10,7 @@ import { NoteService } from './../services/note.service';
   templateUrl: 'note-list.component.html',
   styleUrls: ['note-list.component.scss']
 })
-export class NoteListComponent implements OnDestroy {
+export class NoteListComponent {
   notes = [];
   onSyncSubscription: Subscription;
 
@@ -25,12 +25,12 @@ export class NoteListComponent implements OnDestroy {
     this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.loadNotes());
   }
 
-  async loadNotes() {
-    this.notes = await this.noteService.getNotes();
+  ionViewWillLeave() {
+    this.onSyncSubscription.unsubscribe();
   }
 
-  ngOnDestroy(): void {
-    this.onSyncSubscription.unsubscribe();
+  async loadNotes() {
+    this.notes = await this.noteService.getNotes();
   }
 
   doRefresh(event) {

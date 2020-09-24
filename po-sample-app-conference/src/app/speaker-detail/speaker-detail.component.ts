@@ -12,7 +12,7 @@ import { SpeakerService } from './../services/speaker.service';
   styleUrls: ['speaker-detail.component.scss'],
 
 })
-export class SpeakerDetailComponent implements OnDestroy {
+export class SpeakerDetailComponent {
 
   speaker;
   speakerId;
@@ -36,8 +36,9 @@ export class SpeakerDetailComponent implements OnDestroy {
     this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.loadSpeaker(this.speakerId));
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave() {
     this.onSyncSubscription.unsubscribe();
+    this.syncPreparedSubscription.unsubscribe();
   }
 
   doRefresh(event) {

@@ -38,7 +38,7 @@ export class NoteDetailComponent {
     this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.loadNote(this.lectureId));
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave() {
     this.syncPreparedSubscription.unsubscribe();
     this.onSyncSubscription.unsubscribe();  
   }

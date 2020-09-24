@@ -17,7 +17,7 @@ import { Events } from '../services/events.service';
   selector: 'page-schedule',
   templateUrl: 'schedule.component.html'
 })
-export class ScheduleComponent implements OnDestroy {
+export class ScheduleComponent {
 
   excludeTracks: any = [];
   filteredLectures = [];
@@ -60,7 +60,7 @@ export class ScheduleComponent implements OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave() {
     this.syncPrepared.unsubscribe();
     this.onSyncSubscription.unsubscribe();
   }
