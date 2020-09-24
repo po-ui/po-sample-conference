@@ -9,7 +9,7 @@ import { ConferenceService } from './../services/conference.service';
   selector: 'page-about',
   templateUrl: 'about.component.html'
 })
-export class AboutComponent implements OnDestroy {
+export class AboutComponent {
 
   conference;
   onSyncSubscription: Subscription;
@@ -23,7 +23,7 @@ export class AboutComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave() {
     this.onSyncSubscription.unsubscribe();
   }
 

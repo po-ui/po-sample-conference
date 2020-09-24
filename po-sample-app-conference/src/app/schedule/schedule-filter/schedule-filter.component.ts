@@ -12,7 +12,7 @@ import { TrackService } from './../../services/track.service';
   templateUrl: 'schedule-filter.component.html',
   styleUrls: ['schedule-filter.component.scss']
 })
-export class ScheduleFilterComponent implements OnDestroy {
+export class ScheduleFilterComponent {
 
   tracks: Array<{name: string, isChecked: boolean, color: string}> = [];
 
@@ -31,7 +31,7 @@ export class ScheduleFilterComponent implements OnDestroy {
     this.onSyncSubscription =  this.poSync.onSync().subscribe(() => this.getTracks());
   }
 
-  ngOnDestroy(): void {
+  ionViewWillLeave() {
     this.onSyncSubscription.unsubscribe();
   }
 
