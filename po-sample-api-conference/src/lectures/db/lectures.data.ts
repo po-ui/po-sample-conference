@@ -1,0 +1,43 @@
+import { Lectures } from '../lectures.interface';
+
+export const lectures: Lectures = [
+  {
+    id: '1',
+    title: 'Unit testing for beginners',
+    room: '2B',
+    startTime: '08:30:00',
+    endTime: '08:45:00',
+    description: 'Unit testing for beginners',
+    trackId: '3',
+    speakerId: '2',
+    createdDate: '2020-10-07T18:43:53.075Z',
+    updatedDate: '2020-10-07T18:43:53.075Z',
+    deleted: false,
+  },
+  {
+    id: '2',
+    title: 'Basic RESTful API in NodeJS',
+    room: '2C',
+    startTime: '08:45:00',
+    endTime: '09:00:00',
+    description: 'Basic RESTful API in NodeJS',
+    trackId: '2',
+    speakerId: '1',
+    createdDate: '2020-10-07T18:43:53.075Z',
+    updatedDate: '2020-10-07T18:43:53.075Z',
+    deleted: false,
+  },
+  {
+    id: '3',
+    title: 'Ionic - get started',
+    room: '2C',
+    startTime: '09:00:00',
+    endTime: '09:30:00',
+    description: 'Ionic - get started',
+    trackId: '4',
+    speakerId: '2',
+    createdDate: '2020-10-07T18:43:53.075Z',
+    updatedDate: '2020-10-07T18:43:53.075Z',
+    deleted: false,
+  },
+];

@@ -13,6 +13,14 @@ Para executar as aplicações é necessário realizar as seguintes instalações
  - [Angular](https://angular.io/guide/quickstart);
  - [Ionic](https://ionicframework.com/getting-started)
 
+## Executando a api
+
+```console
+$ cd po-sample-api-conference
+$ npm install
+$ npm run start
+```
+
 ## Executando a aplicação web
 
 ```console
@@ -21,7 +29,7 @@ $ npm install
 $ ng serve
 ```
 
-## Executando a aplicação mobile (em desenvolvimento)
+## Executando a aplicação mobile
 
 ```console
 $ cd po-sample-app-conference

@@ -16,12 +16,14 @@ export class LectureComponent implements OnInit {
   actions: Array<PoPageAction> = [
     { label: 'Create', url: 'home/lectures/create' }
   ];
+
   cancel: PoModalAction = {
     action: () => {
       this.lectureFilterModal.close();
     },
     label: 'Cancelar'
   };
+
   confirm: PoModalAction = {
     action: () => {
       this.filterLecturesByTracks();
@@ -29,12 +31,14 @@ export class LectureComponent implements OnInit {
     },
     label: 'Confirmar'
   };
+
   displayAll: boolean = true;
   filter: PoPageFilter = {
     action: this.filterLecturesByTitle.bind(this),
     advancedAction: this.lectureFilterActionModal.bind(this),
     placeholder: 'Title'
   };
+
   filteredTracksId: Array<string> = [];
   labelPosition = PoSwitchLabelPosition.Left;
   lectures: Array<Lecture>;
@@ -60,7 +64,7 @@ export class LectureComponent implements OnInit {
 
   filterLecturesByTracks() {
     if (this.filteredTracksId) {
-      this.lectures = this.lecturesCache.filter(lecture => (this.filteredTracksId.find(id => id === lecture.track.id)));
+      this.lecturesCache = this.lectures.filter(lecture => (this.filteredTracksId.find(id => id === lecture.track.id)));
     }
   }
 
@@ -102,16 +106,11 @@ export class LectureComponent implements OnInit {
   }
 
   private popTrackInSelectedFilter(trackId: string) {
-    if (this.filteredTracksId.includes(trackId)) {
-      const id = this.filteredTracksId.findIndex(trkId => trkId === trackId);
-      this.filteredTracksId.splice(id, 1);
-    }
+    this.filteredTracksId = this.filteredTracksId.filter(trkId => trkId !== trackId);
   }
 
   private pushTrackInSelectedFilter(trackId: string) {
-    if (!this.filteredTracksId.includes(trackId)) {
-      this.filteredTracksId.push(trackId);
-    }
+    this.filteredTracksId = [...this.filteredTracksId, trackId];
   }
 
 }
