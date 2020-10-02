@@ -1,8 +1,9 @@
 import { PoSyncSchema } from '@po-ui/ng-sync';
+import { environment } from 'src/environments/environment';
 
 export const speakerSchema: PoSyncSchema = {
-  getUrlApi: 'http://localhost:8080/conference-api/api/v1/speakers',
-  diffUrlApi: 'http://localhost:8080/conference-api/api/v1/speakers/diff',
+  getUrlApi: `${environment.apiURL}/speakers`,
+  diffUrlApi: `${environment.apiURL}/speakers/diff`,
   deletedField: 'deleted',
   fields: [ 'id', 'name', 'email', 'photo', 'description', 'lectures' ],
   idField: 'id',

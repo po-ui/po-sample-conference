@@ -43,29 +43,31 @@ export class LectureEditComponent implements OnInit {
     });
 
     this.trackService.get().subscribe(trackResponse => {
-      if (this.isUpdate) {
-        this.lecture.trackId = this.lecture.track.id;
-      }
 
       trackResponse.items.forEach(track => {
         if (track.deleted === false) {
-          this.trackOptions.push({ value: track.id, label: track.name });
-          this.tracks.push(track);
+          this.trackOptions = [...this.trackOptions, { value: track.id, label: track.name }];
+          this.tracks = [...this.tracks, track];
         }
       });
+
+      if (this.isUpdate) {
+        this.lecture.trackId = this.lecture.track.id;
+      }
     });
 
     this.speakerService.get().subscribe(speakerResponse => {
-      if (this.isUpdate) {
-        this.lecture.speakerId = this.lecture.speaker.id;
-      }
 
       speakerResponse.items.forEach(speaker => {
         if (speaker.deleted === false) {
-          this.speakerOptions.push({ value: speaker.id, label: speaker.name });
-          this.speakers.push(speaker);
+          this.speakerOptions = [...this.speakerOptions, { value: speaker.id, label: speaker.name }];
+          this.speakers = [...this.speakers, speaker];
         }
       });
+
+      if (this.isUpdate) {
+        this.lecture.speakerId = this.lecture.speaker.id;
+      }
     });
   }
 

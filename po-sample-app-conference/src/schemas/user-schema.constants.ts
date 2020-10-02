@@ -1,8 +1,9 @@
 import { PoSyncSchema } from '@po-ui/ng-sync';
+import { environment } from 'src/environments/environment';
 
 export const userSchema: PoSyncSchema = {
-  getUrlApi: 'http://localhost:8080/conference-api/api/v1/users',
-  diffUrlApi: 'http://localhost:8080/conference-api/api/v1/users/diff',
+  getUrlApi: `${environment.apiURL}/users`,
+  diffUrlApi: `${environment.apiURL}/users/diff`,
   deletedField: 'deleted',
   fields: [
     'id',

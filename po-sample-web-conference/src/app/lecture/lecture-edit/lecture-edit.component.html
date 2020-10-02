@@ -24,7 +24,9 @@
         [(ngModel)]="lecture.speakerId"
         p-label="Speaker"
         [p-options]="speakerOptions"
-        p-required>
+        p-required
+        [p-disabled]="isUpdate"
+        >
 
         <ng-template p-select-option-template let-option>
           <div class="select select-avatar">
@@ -46,7 +48,9 @@
         [(ngModel)]="lecture.trackId"
         p-label="Track"
         [p-options]="trackOptions"
-        p-required>
+        p-required
+        [p-disabled]="isUpdate"
+        >
 
         <ng-template p-select-option-template let-option>
           <div class="select select-track">

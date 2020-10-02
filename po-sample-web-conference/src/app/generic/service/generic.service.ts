@@ -12,12 +12,7 @@ export class GenericService<T> {
 
   path: string;
 
-  private host: string = 'http://localhost:';
-  private port: number = 8080;
-  private apiName: string = '/conference-api/api/v';
-  private version: number = 1;
-
-  private readonly urlApi: string = this.host + this.port + this.apiName + this.version;
+  private readonly urlApi = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 

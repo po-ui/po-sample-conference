@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { PoEntity } from '@po-ui/ng-sync';
 import { PoStorageService } from '@po-ui/ng-storage';
 import { PoSyncService, PoHttpRequestData, PoHttpRequestType } from '@po-ui/ng-sync';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +48,7 @@ export class UserService {
     user.isSuperUser = false;
 
     const requestData: PoHttpRequestData = {
-      url: 'http://localhost:8080/conference-api/api/v1/users/',
+      url:  `${environment.apiURL}/users/`,
       method: PoHttpRequestType.POST,
       body: user
     };
