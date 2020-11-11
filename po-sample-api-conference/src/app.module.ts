@@ -8,9 +8,14 @@ import { TracksModule } from './tracks/tracks.module';
 import { UsersModule } from './users/users.module';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
+import { GalleryModule } from './gallery/gallery.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: '/files',
+    }),
     SpeakersModule,
     TracksModule,
     ConferencesModule,
@@ -19,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     CoreModule,
     AuthModule,
+    GalleryModule,
   ],
   controllers: [AppController],
 })
