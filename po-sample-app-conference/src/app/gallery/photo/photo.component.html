@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/gallery"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-margin-start">
+      <ion-title>{{ title }}</ion-title>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-label position="stacked">Title</ion-label>
+  <ion-input name="photoTitle" placeholder="Enter a title here" [(ngModel)]="photo.title"></ion-input>
+
+  <div class="container-image">
+    <img *ngIf="photoId" class="photo" [src]="getSRCImage(photo.filename)">
+    <po-upload
+      #upload
+      name="upload"
+      [p-literals]="literals"
+      p-hide-send-button
+      p-hide-select-button
+      [(ngModel)]="photoFile"
+      [p-url]="urlImage"
+      [p-restrictions]="restrictions"
+    >
+    </po-upload>
+    <span *ngIf="photoId" class="po-clickable edit-photo-icon" (click)="upload.selectFiles()"><ion-icon name="create-outline"></ion-icon></span>
+    <ion-button *ngIf="!photoId" class="photo-button" fill="outline" expand="block" (click)="upload.selectFiles()">Choose image</ion-button>
+  </div>
+
+  <ion-button *ngIf="photoFile"
+    class="photo-button"
+    expand="block"
+    [disabled]="!photo.title"
+    (click)="prepareToSend()">{{ save }}
+  </ion-button>
+
+  <ion-button *ngIf="photoId"
+    class="photo-button"
+    expand="block"
+    fill="outline"
+    expand="block"
+    (click)="delete(photo.id)">
+    Delete photo
+  </ion-button>
+</ion-content>

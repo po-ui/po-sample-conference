@@ -37,14 +37,10 @@ import { LectureDetailModule } from './lecture-detail/lecture-detail.module';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
-    PoTemplatesModule,
+    PoTemplatesModule
   ],
   declarations: [AppComponent],
-  providers: [
-    InAppBrowser,
-    SplashScreen,
-    StatusBar
-  ],
+  providers: [InAppBrowser, SplashScreen, StatusBar],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -16,10 +16,14 @@ import { Events } from './services/events.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-
   notePage = { title: 'Notes', url: '/notes', icon: 'list-outline' };
 
   appPages: Array<PageInterface> = [
+    {
+      title: 'Gallery',
+      url: '/gallery',
+      icon: 'camera'
+    },
     {
       title: 'Schedule',
       url: '/schedule',
@@ -61,7 +65,7 @@ export class AppComponent implements OnInit {
     public statusBar: StatusBar,
     private router: Router,
     private poStorage: PoStorageService,
-    private events: Events,
+    private events: Events
   ) {
     this.initializeApp();
   }
@@ -81,7 +85,7 @@ export class AppComponent implements OnInit {
       this.statusBar.styleDefault();
     });
 
-    this.events.get().subscribe((event) => {
+    this.events.get().subscribe(event => {
       this.listenForLoginEvents(event);
     });
   }
@@ -89,7 +93,6 @@ export class AppComponent implements OnInit {
   listenForLoginEvents(event: string) {
     if (event === 'user:login' || event === 'user:signup') {
       this.updateLoggedInStatus(true);
-
     } else if (event === 'user:logout') {
       this.updateLoggedInStatus(false);
 
