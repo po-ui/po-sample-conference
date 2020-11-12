@@ -13,6 +13,9 @@ import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    MulterModule.register({
+      dest: '/files',
+    }),
     SpeakersModule,
     TracksModule,
     ConferencesModule,
@@ -22,9 +25,6 @@ import { MulterModule } from '@nestjs/platform-express';
     CoreModule,
     AuthModule,
     GalleryModule,
-    MulterModule.register({
-      dest: '/uploads',
-    }),
   ],
   controllers: [AppController],
 })
