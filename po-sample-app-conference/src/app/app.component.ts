@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   appPages: Array<PageInterface> = [
     {
       title: 'Gallery',
-      url: '/gallery',
+      url: '/gallery/photo',
       icon: 'camera'
     },
     {

@@ -25,7 +25,7 @@ export class GalleryComponent {
   }
 
   async loadPhotos() {
-    this.photos = await this.galleryService.getNotes();
+    this.photos = [];
   }
 
   doRefresh(event) {

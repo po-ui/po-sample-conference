@@ -10,19 +10,16 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class GalleryService {
+  url = 'http://localhost:3000/gallery/photo';
+
   constructor(private poSync: PoSyncService, private httpClient: HttpClient) {}
 
   getNoteModel() {
     return this.poSync.getModel('Notes');
   }
 
-  async getNote(lectureId) {
-    const notes = await this.getNotes();
-    return notes.find((note: any) => note.lectureId === lectureId);
-  }
-
   save(photo: Photo) {
-    this.httpClient.post()
+    return this.httpClient.post(this.url, photo);
     //return this.getNoteModel().save(note);
   }
 

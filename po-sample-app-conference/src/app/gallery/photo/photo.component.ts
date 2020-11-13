@@ -19,7 +19,7 @@ export class PhotoComponent {
   onSyncSubscription: Subscription;
   syncPreparedSubscription: Subscription;
   photoFile = {};
-  urlImage = '';
+  urlImage = 'http://localhost:3000/gallery/photo/file';
 
   @ViewChild('upload', { static: true }) upload: PoUploadComponent;
 
@@ -36,10 +36,7 @@ export class PhotoComponent {
   ionViewWillEnter() {
     this.syncPreparedSubscription = this.activatedRoute.data.subscribe(() => {
       this.lectureId = this.activatedRoute.snapshot.paramMap.get('noteId');
-      this.loadNote(this.lectureId);
     });
-
-    this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.loadNote(this.lectureId));
   }
 
   ionViewWillLeave() {
@@ -47,45 +44,12 @@ export class PhotoComponent {
     this.onSyncSubscription.unsubscribe();
   }
 
-  async alertRemovePhoto() {
-    const alert = await this.alertCtrl.create({
-      header: `Remove ${this.photo.title}`,
-      message: 'Would you like to remove this note?',
-      buttons: [
-        { text: 'Cancel', handler: () => {} },
-        { text: 'Remove', handler: () => this.removeNote() }
-      ]
-    });
-    alert.present();
-  }
-
-  async savePhoto() {
-    await this.galleryService.save(this.photo);
-
-    const toast = await this.toastCtrl.create({
-      message: 'Saved note',
-      duration: 3000,
-      position: 'bottom'
-    });
-    toast.present();
-
-    this.router.navigate(['/notes']);
-  }
-
-  private async loadNote(lectureId) {
-    const note: any = await this.galleryService.getNote(lectureId);
-    this.photo = note || this.photo;
-  }
-
-  private async removeNote() {
-    await this.galleryService.remove(this.photo);
-    this.router.navigate(['/notes']);
-  }
-
-  resumeUploadSuccess() {}
-  sendFiles() {
-    this.galleryService.save(this.photo);
+  resumeUploadSuccess(event) {
+    console.log(event);
     console.log(this.photo);
+    //this.galleryService.save(this.photo);
+  }
+  sendFiles() {
     console.log(this.photoFile);
     this.upload.sendFiles();
   }
