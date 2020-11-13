@@ -9,5 +9,16 @@ export type Photos = Array<Photo>;
 export interface Photo extends Item {
   id: string;
   title: string;
-  photo: string;
+  filename?: string;
+}
+
+export interface PhotoFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  destination: string;
+  filename: string;
+  path: string;
+  size: number;
 }

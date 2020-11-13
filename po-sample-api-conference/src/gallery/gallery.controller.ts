@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Post,
   UploadedFile,
@@ -9,10 +10,14 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { extname } from 'path';
 import { diskStorage } from 'multer';
+import { Photo, PhotoFile } from './gallery.interface';
+import { GalleryService } from './gallery.service';
 
 @ApiTags('Gallery')
 @Controller('gallery')
 export class GalleryController {
+  constructor(private galleryService: GalleryService) {}
+
   @Post('photo')
   @UseInterceptors(
     FileInterceptor('photo', {
@@ -23,13 +28,17 @@ export class GalleryController {
       fileFilter: imageFileFilter,
     }),
   )
-  async uploadedFile(@UploadedFile() file): Promise<any> {
+  async uploadedFile(
+    @UploadedFile() file: PhotoFile,
+    @Body() body: Photo,
+  ): Promise<Photo> {
     console.log(file);
+    console.log(body);
 
-    const response = {
-      originalname: file.originalname,
-      filename: file.filename,
-    };
+    const { id, title } = body;
+
+    const response = this.galleryService.save({ id, title }, file.filename);
+
     return response;
   }
 
