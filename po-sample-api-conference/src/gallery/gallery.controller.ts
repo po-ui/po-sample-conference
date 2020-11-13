@@ -35,9 +35,6 @@ export class GalleryController {
     @UploadedFile() file: PhotoFile,
     @Body() body: Photo,
   ): Promise<Photo> {
-    console.log(file);
-    console.log(body);
-
     const { id, title } = body;
 
     const response = this.galleryService.save({ id, title }, file.filename);
