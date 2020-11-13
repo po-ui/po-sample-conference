@@ -69,8 +69,10 @@ export class GalleryController {
 
   @Get('photo/image/:id')
   async serveImage(@Param('id') id: string, @Res() res): Promise<any> {
-    const { filename } = this.galleryService.getPhoto(id);
-    res.sendFile(filename, { root: 'files' });
+    const filename = this.galleryService.getPhoto(id)?.filename;
+    if (filename) {
+      res.sendFile(filename, { root: 'files' });
+    }
   }
 
   @Get('photo/:id')
