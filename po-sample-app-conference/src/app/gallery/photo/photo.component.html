@@ -17,11 +17,12 @@
     </ion-item>
     <ion-item>
       <po-upload
+        #upload
         name="upload"
         p-label="PO Upload"
         p-hide-send-button
         [(ngModel)]="photoFile"
-        p-url="blabla"
+        [p-url]="urlImage"
         (p-success)="resumeUploadSuccess()"
       >
       </po-upload>

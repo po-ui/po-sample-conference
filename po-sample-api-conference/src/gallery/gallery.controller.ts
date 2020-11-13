@@ -19,9 +19,15 @@ import { editFileName, imageFileFilter } from 'src/utils/utils';
 @ApiTags('Gallery')
 @Controller('gallery')
 export class GalleryController {
-  constructor(private galleryService: GalleryService) { }
-  
+  constructor(private galleryService: GalleryService) {}
+
   @Post('photo')
+  async savePhoto(@Body() body: Photo): Promise<Photo> {
+    console.log(body);
+    return this.galleryService.save(body);
+  }
+
+  @Post('photo/file')
   @UseInterceptors(
     FileInterceptor('photo', {
       storage: diskStorage({
@@ -31,15 +37,8 @@ export class GalleryController {
       fileFilter: imageFileFilter,
     }),
   )
-  async uploadedFile(
-    @UploadedFile() file: PhotoFile,
-    @Body() body: Photo,
-  ): Promise<Photo> {
-    const { title } = body;
-
-    const response = this.galleryService.save({ title }, file.filename);
-
-    return response;
+  async uploadedFile(@UploadedFile() file: PhotoFile): Promise<any> {
+    return { file: file.filename };
   }
 
   @Post('photos')
@@ -64,7 +63,7 @@ export class GalleryController {
     return response;
   }
 
-  @Get('photo/image/:id')
+  @Get('photo/file/:id')
   async serveImage(@Param('id') id: string, @Res() res): Promise<any> {
     const filename = this.galleryService.getPhoto(id)?.filename;
     if (filename) {

@@ -42,18 +42,18 @@ export class GalleryService {
     photosToDelete.forEach(photo => this.delete(photo.id));
   }
 
-  save(photo: Photo, filename?: string): Photo {
-    const saved = { ...Utils.completePost(), ...photo, filename };
+  save(photo: Photo): Photo {
+    const saved = { ...Utils.completePost(), ...photo };
     this.photos.push(saved);
     return saved;
   }
 
-  update(id: string, updatedphoto: Photo, fileName?: string): Photo {
+  update(id: string, updatedphoto: Photo): Photo {
     const photo = this.getPhoto(id);
     const updatedDate = new Date().toString();
     const updated = { ...photo, ...updatedphoto, updatedDate };
     this.delete(id);
-    return this.save(updated, fileName);
+    return this.save(updated);
   }
 
   private paginate(filteredphoto, page?: number, pageSize?: number) {

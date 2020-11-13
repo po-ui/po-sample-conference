@@ -1,20 +1,19 @@
-import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import { PoSyncService } from "@po-ui/ng-sync";
+import { PoSyncService } from '@po-ui/ng-sync';
+import { Photo } from '../gallery/gallery.interface';
 
-import { UserService } from "./user.service";
+import { UserService } from './user.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
 export class GalleryService {
-  constructor(
-    private poSync: PoSyncService,
-    private userService: UserService
-  ) {}
+  constructor(private poSync: PoSyncService, private httpClient: HttpClient) {}
 
   getNoteModel() {
-    return this.poSync.getModel("Notes");
+    return this.poSync.getModel('Notes');
   }
 
   async getNote(lectureId) {
@@ -22,18 +21,9 @@ export class GalleryService {
     return notes.find((note: any) => note.lectureId === lectureId);
   }
 
-  async getNotes() {
-    const user: any = await this.userService.getLoggedUser();
-    const notes: any = await this.getNoteModel().find().exec();
-    return notes.items.filter((note: any) => note.userId === user.id);
-  }
-
-  remove(note) {
-    return this.getNoteModel().remove(note);
-  }
-
-  save(note) {
-    return this.getNoteModel().save(note);
+  save(photo: Photo) {
+    this.httpClient.post()
+    //return this.getNoteModel().save(note);
   }
 
   synchronize() {

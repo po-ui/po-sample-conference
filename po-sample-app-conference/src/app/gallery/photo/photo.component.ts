@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
+import { PoUploadComponent } from '@po-ui/ng-components';
 import { PoSyncService } from '@po-ui/ng-sync';
 import { Subscription } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
@@ -18,6 +19,9 @@ export class PhotoComponent {
   onSyncSubscription: Subscription;
   syncPreparedSubscription: Subscription;
   photoFile = {};
+  urlImage = '';
+
+  @ViewChild('upload', { static: true }) upload: PoUploadComponent;
 
   constructor(
     public alertCtrl: AlertController,
@@ -80,7 +84,9 @@ export class PhotoComponent {
 
   resumeUploadSuccess() {}
   sendFiles() {
+    this.galleryService.save(this.photo);
     console.log(this.photo);
     console.log(this.photoFile);
+    this.upload.sendFiles();
   }
 }
