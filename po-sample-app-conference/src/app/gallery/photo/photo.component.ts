@@ -5,6 +5,7 @@ import { PoSyncService } from '@po-ui/ng-sync';
 import { Subscription } from 'rxjs';
 import { GalleryService } from 'src/app/services/gallery.service';
 import { UserService } from 'src/app/services/user.service';
+import { Photo } from '../gallery.interface';
 
 @Component({
   selector: 'app-photo',
@@ -13,9 +14,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class PhotoComponent {
   lectureId;
-  photo = { id: undefined, title: 'New note', text: null, lectureId: undefined, userId: undefined };
+  photo: Photo = {};
   onSyncSubscription: Subscription;
   syncPreparedSubscription: Subscription;
+  photoFile = {};
 
   constructor(
     public alertCtrl: AlertController,
@@ -54,9 +56,6 @@ export class PhotoComponent {
   }
 
   async savePhoto() {
-    this.photo.lectureId = this.lectureId;
-    this.photo.userId = await this.userService.getLoggedUserId();
-
     await this.galleryService.save(this.photo);
 
     const toast = await this.toastCtrl.create({
@@ -77,5 +76,11 @@ export class PhotoComponent {
   private async removeNote() {
     await this.galleryService.remove(this.photo);
     this.router.navigate(['/notes']);
+  }
+
+  resumeUploadSuccess() {}
+  sendFiles() {
+    console.log(this.photo);
+    console.log(this.photoFile);
   }
 }

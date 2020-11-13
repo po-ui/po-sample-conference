@@ -19,8 +19,8 @@ import { editFileName, imageFileFilter } from 'src/utils/utils';
 @ApiTags('Gallery')
 @Controller('gallery')
 export class GalleryController {
-  constructor(private galleryService: GalleryService) {}
-
+  constructor(private galleryService: GalleryService) { }
+  
   @Post('photo')
   @UseInterceptors(
     FileInterceptor('photo', {
@@ -35,9 +35,9 @@ export class GalleryController {
     @UploadedFile() file: PhotoFile,
     @Body() body: Photo,
   ): Promise<Photo> {
-    const { id, title } = body;
+    const { title } = body;
 
-    const response = this.galleryService.save({ id, title }, file.filename);
+    const response = this.galleryService.save({ title }, file.filename);
 
     return response;
   }

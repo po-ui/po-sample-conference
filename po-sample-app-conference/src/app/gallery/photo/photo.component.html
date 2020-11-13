@@ -4,33 +4,29 @@
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-margin-start">
-      <ion-input type="text" [(ngModel)]="photo.title"></ion-input>
+      <ion-title>Fotos</ion-title>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content class="ion-padding">
-  <textarea class="note" [(ngModel)]="photo.text" autofocus></textarea>
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item>
+      <ion-label position="stacked">Título</ion-label>
+      <ion-input placeholder="Insira o Titulo" [(ngModel)]="photo.title"> </ion-input>
+    </ion-item>
+    <ion-item>
+      <po-upload
+        name="upload"
+        p-label="PO Upload"
+        p-hide-send-button
+        [(ngModel)]="photoFile"
+        p-url="blabla"
+        (p-success)="resumeUploadSuccess()"
+      >
+      </po-upload>
+    </ion-item>
 
-  <ion-fab vertical="top" horizontal="end" slot="fixed" *ngIf="photo.id">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-
-    <ion-fab-list class="ionic-fab-list" side="bottom">
-      <ion-fab-button (click)="savePhoto()" class="ionic-fab-list-item" color="light">
-        <ion-icon name="checkmark"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button (click)="alertRemovePhoto()" class="ionic-fab-list-item" color="light">
-        <ion-icon class="note-more-trash" name="trash"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
-
-  <ion-fab vertical="top" horizontal="end" *ngIf="!photo.id">
-    <ion-fab-button (click)="savePhoto()">
-      <ion-icon name="checkmark"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-button fill="outline" expand="block" style="text-transform: none" (click)="sendFiles()">Enviar</ion-button>
+  </ion-list>
 </ion-content>

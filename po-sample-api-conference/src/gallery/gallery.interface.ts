@@ -7,7 +7,6 @@ export interface PhotosAPI extends Collection {
 export type Photos = Array<Photo>;
 
 export interface Photo extends Item {
-  id: string;
   title: string;
   filename?: string;
 }
