@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
+  Res,
   UploadedFile,
   UploadedFiles,
   UseInterceptors,
@@ -62,5 +65,16 @@ export class GalleryController {
       response.push(fileReponse);
     });
     return response;
+  }
+
+  @Get('photo/image/:id')
+  async serveImage(@Param('id') id: string, @Res() res): Promise<any> {
+    const { filename } = this.galleryService.getPhoto(id);
+    res.sendFile(filename, { root: 'files' });
+  }
+
+  @Get('photo/:id')
+  async getPhoto(@Param('id') id: string): Promise<Photo> {
+    return this.galleryService.getPhoto(id);
   }
 }

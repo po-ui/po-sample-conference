@@ -42,8 +42,8 @@ export class GalleryService {
     photosToDelete.forEach(photo => this.delete(photo.id));
   }
 
-  save(photo: Photo, fileName?: string): Photo {
-    const saved = { ...Utils.completePost(), ...photo, fileName };
+  save(photo: Photo, filename?: string): Photo {
+    const saved = { ...Utils.completePost(), ...photo, filename };
     this.photos.push(saved);
     return saved;
   }
