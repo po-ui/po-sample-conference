@@ -48,20 +48,9 @@ export class PhotoComponent {
   resumeUploadSuccess(event) {
     console.log(event);
     console.log(this.photo);
-    //this.galleryService.save(this.photo);
   }
 
   async sendFiles() {
-    /*
-    console.log(this.photoFile);
-    const [poFile] = this.photoFile;
-    const file64 = await this.toBase64(poFile.rawFile);
-    console.log(file64);
-    const newFile = await this.toFile(file64, poFile.rawFile.name, poFile.rawFile.type);
-    console.log(poFile.rawFile);
-    console.log(newFile);
-    //this.upload.sendFiles();
-    */
     const [poFile] = this.photoFile;
     const requestData: PoHttpRequestData = {
       url: this.urlImage,
@@ -73,20 +62,5 @@ export class PhotoComponent {
     console.log(requestData);
 
     this.poSync.insertHttpCommand(requestData, poFile.rawFile.name);
-  }
-
-  toBase64(file: File) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
-
-  toFile(url, filename, mimeType) {
-    return fetch(url)
-      .then(res => res.arrayBuffer())
-      .then(buf => new File([buf], filename, { type: mimeType }));
   }
 }
