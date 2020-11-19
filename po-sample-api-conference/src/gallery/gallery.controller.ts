@@ -29,7 +29,7 @@ export class GalleryController {
 
   @Post('photo/file')
   @UseInterceptors(
-    FileInterceptor('files', {
+    FileInterceptor('file', {
       storage: diskStorage({
         destination: './files',
         filename: editFileName,
@@ -37,6 +37,7 @@ export class GalleryController {
     }),
   )
   async uploadedFile(@UploadedFile() file: PhotoFile): Promise<any> {
+    console.log(file);
     return { file: file.filename };
   }
 
