@@ -30,21 +30,21 @@ import { LectureDetailModule } from './lecture-detail/lecture-detail.module';
     IonicModule.forRoot(),
     PoModule,
     HammerModule,
-    PoStorageModule.forRoot(),
+    PoStorageModule.forRoot({
+      name: 'mystorage',
+      storeName: '_mystore',
+      driverOrder: ['lokijs', 'websql', 'indexeddb', 'localstorage']
+    }),
     PoSyncModule,
     LectureDetailModule,
     PoPageLoginModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
-    PoTemplatesModule,
+    PoTemplatesModule
   ],
   declarations: [AppComponent],
-  providers: [
-    InAppBrowser,
-    SplashScreen,
-    StatusBar
-  ],
+  providers: [InAppBrowser, SplashScreen, StatusBar],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
