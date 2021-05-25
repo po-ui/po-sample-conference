@@ -29,6 +29,8 @@ $ npm install
 $ ng serve
 ```
 
+> Caso utilizar a versão 7 do npm pode ocorrer erro de versão das dependências, neste caso utilize `npm install --legacy-peer-deps`
+
 ## Executando a aplicação mobile
 
 ```console
@@ -36,6 +38,8 @@ $ cd po-sample-app-conference
 $ npm install
 $ ionic serve
 ```
+
+> Caso utilizar a versão 7 do npm pode ocorrer erro de versão das dependências, neste caso utilize `npm install --legacy-peer-deps`
 
 > Não será possível testar a aplicação com a API pois a mesma encontra-se em fase de desenvolvimento.
 
