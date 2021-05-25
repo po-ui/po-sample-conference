@@ -13,9 +13,6 @@
     ],
     "deprecation": {
       "severity": "warning"
-    },
-
-    // Validar Sonar
-    "object-literal-key-quotes": false
+    }
   }
 }
