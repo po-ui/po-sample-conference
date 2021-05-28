@@ -2,8 +2,6 @@
 
 Esse repositório tem como objetivo, disponibilizar um exemplo de uma arquitetura para dispositivos móveis. Aqui você pode encontrar exemplos de utilização do **PO-UI**, **PO-Sync** e **PO-Storage**, e usá-los como referência para suas aplicações.
 
-> Este repositório e suas aplicações estão **em desenvolvimento** e ainda **não estão disponíveis** todas as funcionalidades.
-
 No exemplo, a aplicação web funciona como um portal para o administrador da conferência, onde ele pode cadastrar, atualizar ou remover os palestrantes e as palestras. Já no aplicativo móvel, o usuário além de poder acompanhar quem são os palestrantes e a agenda de palestras, ele pode adicionar, alterar ou remover notas sobre uma determinada palestra. Todas essas informações ficam armazenadas na API, comum as duas aplicações.
 
 ## Pré-requisitos:
@@ -40,8 +38,6 @@ $ ionic serve
 ```
 
 > Caso utilizar a versão 7 do npm pode ocorrer erro de versão das dependências, neste caso utilize `npm install --legacy-peer-deps`
-
-> Não será possível testar a aplicação com a API pois a mesma encontra-se em fase de desenvolvimento.
 
 ## Links úteis:
 
