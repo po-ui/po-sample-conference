@@ -1,7 +1,4 @@
 {
-  "extends": [
-    "@po-ui/ng-tslint"
-  ],
   "rules": {
 
     "ban": [
