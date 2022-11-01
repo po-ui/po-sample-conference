@@ -17,4 +17,4 @@ jobs:
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
-      - run: flyctl deploy --local-only --no-cache
+      - run: cd po-sample-api-conference && flyctl deploy --local-only --no-cache
