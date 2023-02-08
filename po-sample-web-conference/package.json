@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@alinelariguet/po-rgb-neutral-theme": "^1.0.0",
-    "@angular-devkit/schematics": "^15.1.4",
     "@angular/animations": "~15.1.3",
     "@angular/common": "~15.1.3",
     "@angular/compiler": "~15.1.3",
@@ -23,14 +22,15 @@
     "@angular/platform-browser": "~15.1.3",
     "@angular/platform-browser-dynamic": "~15.1.3",
     "@angular/router": "~15.1.3",
-    "@po-ui/ng-components": "14.0.0-next.0",
-    "@po-ui/ng-storage": "14.0.0-next.0",
-    "@po-ui/ng-templates": "14.0.0-next.0",
+    "@po-ui/ng-components": "15.1.0",
+    "@po-ui/ng-storage": "14.0.0",
+    "@po-ui/ng-templates": "15.1.0",
     "cd": "^0.3.3",
     "core-js": "^3.6.5",
     "moment": "^2.29.0",
-    "rxjs": "7.5.5",
-    "zone.js": "~0.11.4"
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.12.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~15.1.4",
@@ -51,6 +51,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~9.0.0",
     "tslint": "~6.1.3",
-    "typescript": "~4.6.4"
+    "typescript": "~4.9.5"
   }
 }
