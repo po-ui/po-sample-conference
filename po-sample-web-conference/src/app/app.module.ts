@@ -7,6 +7,7 @@ import { HomeModule } from './home/home.module';
 import { LoginService } from './login/login.service';
 import { SharedModule } from './shared/shared.module';
 import { LoginModule } from './login/login.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { LoginModule } from './login/login.module';
     SharedModule,
     HomeModule,
     LoginModule,
+    HttpClientModule
   ],
   declarations: [
     AppComponent

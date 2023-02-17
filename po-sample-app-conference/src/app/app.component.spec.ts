@@ -1,44 +1,62 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
+import { StatusBar } from '@capacitor/status-bar';
 import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
-import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
+
+import { PoStorageService } from '@po-ui/ng-storage';
+import { Events } from './services/events.service';
 
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
 
-  beforeEach(waitForAsync(() => {
-    statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
-    splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
-    platformReadySpy = Promise.resolve();
-    platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let routerSpy: jasmine.SpyObj<Router>;
+  let poStorageSpy: jasmine.SpyObj<PoStorageService>;
+  let statusBarSpy = jasmine.createSpyObj('StatusBar', ['setOverlaysWebView']);
 
-    TestBed.configureTestingModule({
+  const platformMock = {
+    ready: () => Promise.resolve(),
+  };
+
+  const eventsServiceMock = {
+    publish: () => {},
+    get: () => {
+      return { subscribe: () => {} };
+    }
+  };
+
+  beforeEach(async () => {
+    const routerSpyObj = jasmine.createSpyObj('Router', ['navigate']);
+    const poStorageSpyObj = jasmine.createSpyObj('PoStorageService', ['remove', 'get']);
+
+    await TestBed.configureTestingModule({
       declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: StatusBar, useValue: statusBarSpy },
-        { provide: SplashScreen, useValue: splashScreenSpy },
-        { provide: Platform, useValue: platformSpy }
-      ]
+        { provide: Platform, useValue: platformMock },
+        { provide: Router, useValue: routerSpyObj },
+        { provide: PoStorageService, useValue: poStorageSpyObj },
+        { provide: Events, useValue: eventsServiceMock }
+      ],
     }).compileComponents();
-  }));
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    poStorageSpy = TestBed.inject(PoStorageService) as jasmine.SpyObj<PoStorageService>;
+  });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
   it('should initialize the app', async () => {
-    TestBed.createComponent(AppComponent);
-    expect(platformSpy.ready).toHaveBeenCalled();
-    await platformReadySpy;
-    expect(statusBarSpy.styleDefault).toHaveBeenCalled();
-    expect(splashScreenSpy.hide).toHaveBeenCalled();
+    spyOn(component,<any> 'isLogged');
+    component.ngOnInit();
+    expect(component['isLogged']).toHaveBeenCalled();
   });
 
   // TODO: add more tests!
