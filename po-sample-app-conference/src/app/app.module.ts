@@ -4,11 +4,9 @@ import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { RouteReuseStrategy } from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
-import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
-import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
-import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { PoSyncModule } from '@po-ui/ng-sync';
 import { PoStorageModule } from '@po-ui/ng-storage';
@@ -40,7 +38,7 @@ import { LectureDetailModule } from './lecture-detail/lecture-detail.module';
     PoTemplatesModule
   ],
   declarations: [AppComponent],
-  providers: [InAppBrowser, SplashScreen, StatusBar],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

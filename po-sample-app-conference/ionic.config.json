@@ -1,7 +1,7 @@
 {
   "name": "po-sample-app-conference",
   "integrations": {
-    "cordova": {}
+    "capacitor": {}
   },
   "type": "angular"
 }

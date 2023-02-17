@@ -2,8 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Platform, NavController } from '@ionic/angular';
-import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
-import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
+import { StatusBar } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 
 import { PoStorageService } from '@po-ui/ng-storage';
 
@@ -61,8 +61,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     public platform: Platform,
-    public splashScreen: SplashScreen,
-    public statusBar: StatusBar,
     private router: Router,
     private poStorage: PoStorageService,
     private events: Events
@@ -80,10 +78,11 @@ export class AppComponent implements OnInit {
     });
   }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-    });
+  async initializeApp() {
+    await this.platform.ready();
+    if (Capacitor.isNativePlatform()) {
+      StatusBar.setOverlaysWebView({ overlay: true });
+    }
 
     this.events.get().subscribe(event => {
       this.listenForLoginEvents(event);
