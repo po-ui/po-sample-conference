@@ -17,8 +17,8 @@ export class TrackComponent implements OnInit {
     { property: 'color', label: 'Color' },
     {
       property: 'status', label: 'Status', type: 'label', labels: [
-        { value: 'active', color: 'success', label: 'Active' },
-        { value: 'inactive', color: 'danger', label: 'Inactive' }
+        { value: 'active', color: 'color-11', label: 'Active' },
+        { value: 'inactive', color: 'color-07', label: 'Inactive' }
       ]
     }
   ];

@@ -8,6 +8,8 @@ import { LoginService } from './login/login.service';
 import { SharedModule } from './shared/shared.module';
 import { LoginModule } from './login/login.module';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   imports: [
@@ -16,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     HomeModule,
     LoginModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     AppComponent
