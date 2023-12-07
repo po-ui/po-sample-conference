@@ -8,38 +8,44 @@
 </ion-header>
 
 <ion-content>
-
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-virtual-scroll [items]="speakers" approxItemHeight="457px">
-
-    <ion-list *virtualItem="let speaker; let itemBounds = bounds;">
-
-      <ion-item lines="full" class="ion-margin-top">
+  <cdk-virtual-scroll-viewport itemSize="56" minBufferPx="900" maxBufferPx="1350" style="width: 100%; height: 100%">
+    <ion-list>
+      <ion-item *cdkVirtualFor="let speaker of speakers" lines="full" class="ion-margin-top">
         <ion-avatar slot="start">
-          <img src="../../assets/imgs/po/{{ speaker.photo }}" alt="Speaker profile pic">
+          <img src="../../assets/imgs/po/{{ speaker.photo }}" alt="Speaker profile pic" />
         </ion-avatar>
 
         <ion-label>
           <h1 class="ion-padding-start">{{ speaker.name }}</h1>
           <div *ngFor="let lecture of speaker.lectures">
-            <a class="ion-padding-start lecture-link" routerLink="/lecture-detail/{{ lecture.id }}">{{ lecture.title }}</a>
+            <a class="ion-padding-start lecture-link" routerLink="/lecture-detail/{{ lecture.id }}">{{
+              lecture.title
+            }}</a>
           </div>
 
-          <ion-button class="ion-margin-start ion-margin-vertical" size="small" routerLink="/speaker-detail/{{speaker.id}}">
-            <ion-icon class="ion-padding-end" name='information-circle'></ion-icon>
+          <ion-button
+            class="ion-margin-start ion-margin-vertical"
+            size="small"
+            routerLink="/speaker-detail/{{ speaker.id }}"
+          >
+            <ion-icon class="ion-padding-end" name="information-circle"></ion-icon>
             About
           </ion-button>
 
-          <ion-button class="ion-margin-start ion-margin-top ion-margin-vertical"  size="small" (click)="openContact(speaker)">
-            <ion-icon class="ion-padding-end" name='mail'></ion-icon>
+          <ion-button
+            class="ion-margin-start ion-margin-top ion-margin-vertical"
+            size="small"
+            (click)="openContact(speaker)"
+          >
+            <ion-icon class="ion-padding-end" name="mail"></ion-icon>
             Contact
           </ion-button>
         </ion-label>
       </ion-item>
-
     </ion-list>
-  </ion-virtual-scroll>
+  </cdk-virtual-scroll-viewport>
 </ion-content>
