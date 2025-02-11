@@ -11,7 +11,8 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+  styleUrls: ['./gallery.component.scss'],
+  standalone: false
 })
 export class GalleryComponent {
   photos: Photos = [];
@@ -20,11 +21,8 @@ export class GalleryComponent {
   isLogged = false;
   untitledImage: 'Untitled image';
 
-  constructor(
-    private galleryService: GalleryService,
-    private poSync: PoSyncService,
-    private userService: UserService) {
-    this.userService.getLoggedUserId().then(user => this.isLogged = !!user);
+  constructor(private galleryService: GalleryService, private poSync: PoSyncService, private userService: UserService) {
+    this.userService.getLoggedUserId().then(user => (this.isLogged = !!user));
   }
 
   ionViewWillEnter() {

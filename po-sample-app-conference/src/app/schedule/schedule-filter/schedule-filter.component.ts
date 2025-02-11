@@ -10,25 +10,22 @@ import { TrackService } from './../../services/track.service';
 @Component({
   selector: 'page-schedule-filter',
   templateUrl: 'schedule-filter.component.html',
-  styleUrls: ['schedule-filter.component.scss']
+  styleUrls: ['schedule-filter.component.scss'],
+  standalone: false
 })
 export class ScheduleFilterComponent {
-
-  tracks: Array<{name: string, isChecked: boolean, color: string}> = [];
+  tracks: Array<{ name: string; isChecked: boolean; color: string }> = [];
 
   onSyncSubscription: Subscription;
 
   @Input() excludeTracks;
 
-  constructor(
-    public modalCtrl: ModalController,
-    private trackService: TrackService,
-    private poSync: PoSyncService) { }
+  constructor(public modalCtrl: ModalController, private trackService: TrackService, private poSync: PoSyncService) {}
 
   ionViewWillEnter() {
     this.getTracks();
 
-    this.onSyncSubscription =  this.poSync.onSync().subscribe(() => this.getTracks());
+    this.onSyncSubscription = this.poSync.onSync().subscribe(() => this.getTracks());
   }
 
   ionViewWillLeave() {
@@ -36,9 +33,7 @@ export class ScheduleFilterComponent {
   }
 
   applyFilters() {
-    const excludedTrackNames = this.tracks
-      .filter(track => !track.isChecked)
-      .map(track => track.name);
+    const excludedTrackNames = this.tracks.filter(track => !track.isChecked).map(track => track.name);
 
     this.dismiss(excludedTrackNames);
   }
@@ -64,7 +59,6 @@ export class ScheduleFilterComponent {
   }
 
   resetFilters() {
-    this.tracks.forEach(track => track.isChecked = true);
+    this.tracks.forEach(track => (track.isChecked = true));
   }
-
 }

@@ -7,10 +7,10 @@ import { UserService } from './../../services/user.service';
 
 @Component({
   selector: 'schedule-favorite-list',
-  templateUrl: 'schedule-favorite-list.component.html'
+  templateUrl: 'schedule-favorite-list.component.html',
+  standalone: false
 })
 export class ScheduleFavoriteListComponent {
-
   @Input() lectures;
   @Input() favorites;
 
@@ -23,7 +23,7 @@ export class ScheduleFavoriteListComponent {
     public activatedRoute: ActivatedRoute,
     public toastCtrl: ToastController,
     private userService: UserService
-  ) { }
+  ) {}
 
   ionViewWillEnter() {
     this.favoriteAll = this.checkFavoriteAll();
@@ -52,11 +52,14 @@ export class ScheduleFavoriteListComponent {
       this.dismiss();
     }
 
-    this.userService.addFavoriteLectureList(this.lecturesListToFavor).then(() => {
-      this.dismiss();
-    }, error => {
-      this.createToast(error);
-    });
+    this.userService.addFavoriteLectureList(this.lecturesListToFavor).then(
+      () => {
+        this.dismiss();
+      },
+      error => {
+        this.createToast(error);
+      }
+    );
   }
 
   selectAll() {
@@ -72,5 +75,4 @@ export class ScheduleFavoriteListComponent {
     });
     toast.present();
   }
-
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RouteReuseStrategy } from '@angular/router';
@@ -19,11 +19,12 @@ import { environment } from '../environments/environment';
 import { LectureDetailModule } from './lecture-detail/lecture-detail.module';
 
 @NgModule({
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     FormsModule,
     IonicModule.forRoot(),
     PoModule,
@@ -37,8 +38,9 @@ import { LectureDetailModule } from './lecture-detail/lecture-detail.module';
     }),
     PoTemplatesModule
   ],
-  declarations: [AppComponent],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideHttpClient(withInterceptorsFromDi())
+  ]
 })
 export class AppModule {}

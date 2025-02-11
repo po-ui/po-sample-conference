@@ -10,22 +10,19 @@ import { SpeakerService } from './../services/speaker.service';
   selector: 'page-speaker-detail',
   templateUrl: 'speaker-detail.component.html',
   styleUrls: ['speaker-detail.component.scss'],
-
+  standalone: false
 })
 export class SpeakerDetailComponent {
-
   speaker;
   speakerId;
   syncPreparedSubscription: Subscription;
   onSyncSubscription: Subscription;
 
-
   constructor(
     public activatedRoute: ActivatedRoute,
     private speakerService: SpeakerService,
-    private poSync: PoSyncService,
-
-  ) { }
+    private poSync: PoSyncService
+  ) {}
 
   ionViewWillEnter() {
     this.syncPreparedSubscription = this.activatedRoute.data.subscribe(() => {
@@ -50,10 +47,8 @@ export class SpeakerDetailComponent {
   }
 
   private loadSpeaker(speakerId) {
-
     this.speakerService.getSpeaker(speakerId).then(speaker => {
       this.speaker = speaker;
     });
   }
-
 }

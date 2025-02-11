@@ -7,14 +7,14 @@ import { ConferenceService } from './../services/conference.service';
 
 @Component({
   selector: 'page-about',
-  templateUrl: 'about.component.html'
+  templateUrl: 'about.component.html',
+  standalone: false
 })
 export class AboutComponent {
-
   conference;
   onSyncSubscription: Subscription;
 
-  constructor(private conferenceService: ConferenceService, private poSync: PoSyncService) { }
+  constructor(private conferenceService: ConferenceService, private poSync: PoSyncService) {}
 
   ionViewWillEnter() {
     this.loadConference();
@@ -30,5 +30,4 @@ export class AboutComponent {
   async loadConference() {
     this.conference = await this.conferenceService.getConference();
   }
-
 }

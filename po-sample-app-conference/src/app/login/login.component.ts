@@ -8,20 +8,21 @@ import { Events } from './../services/events.service';
 
 @Component({
   selector: 'page-user',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  standalone: false
 })
 export class LoginComponent {
-
   constructor(
     public events: Events,
     public navCtrl: NavController,
     public toastCtrl: ToastController,
     private userService: UserService,
     public router: Router
-  ) { }
+  ) {}
 
   onLogin(form) {
-    this.userService.onLogin(form.login, form.password)
+    this.userService
+      .onLogin(form.login, form.password)
       .then(() => {
         this.events.publish('user:login');
         this.router.navigateByUrl('/');
@@ -38,5 +39,4 @@ export class LoginComponent {
     });
     toast.present();
   }
-
 }

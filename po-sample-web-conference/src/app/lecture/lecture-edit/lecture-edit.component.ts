@@ -1,31 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Input, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 
-import { PoNotificationService, PoSelectOption } from '@po-ui/ng-components';
+import { PoNotificationService, PoSelectOption } from "@po-ui/ng-components";
 
-import { Lecture } from './../../model/lecture';
-import { LectureService } from '../lecture.service';
-import { Speaker } from './../../model/speaker';
-import { SpeakerService } from '../../speaker/speaker.service';
-import { Track } from '../../model/track';
-import { TrackService } from './../../track/track.service';
+import { Lecture } from "./../../model/lecture";
+import { LectureService } from "../lecture.service";
+import { Speaker } from "./../../model/speaker";
+import { SpeakerService } from "../../speaker/speaker.service";
+import { Track } from "../../model/track";
+import { TrackService } from "./../../track/track.service";
 
 @Component({
-  selector: 'app-lecture-edit',
-  templateUrl: './lecture-edit.component.html',
-  styleUrls: ['./lecture-edit.component.css']
+  selector: "app-lecture-edit",
+  templateUrl: "./lecture-edit.component.html",
+  styleUrls: ["./lecture-edit.component.css"],
+  standalone: false,
 })
 export class LectureEditComponent implements OnInit {
-
   isUpdate: boolean = false;
   speakerOptions: Array<PoSelectOption> = [];
   speakers: Array<Speaker> = [];
-  title: string = 'Create lecture';
+  title: string = "Create lecture";
   trackOptions: Array<PoSelectOption> = [];
   tracks: Array<Track> = [];
 
   /** Objeto do tipo Lecture referente a palestra. */
-  @Input('lecture') lecture: Lecture = new Lecture();
+  @Input("lecture") lecture: Lecture = new Lecture();
 
   constructor(
     private route: ActivatedRoute,
@@ -33,20 +33,23 @@ export class LectureEditComponent implements OnInit {
     private router: Router,
     private speakerService: SpeakerService,
     private poNotification: PoNotificationService,
-    private trackService: TrackService) { }
+    private trackService: TrackService
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      if (params['id']) {
-        this.getLectureById(params['id'].toString());
+    this.route.params.subscribe((params) => {
+      if (params["id"]) {
+        this.getLectureById(params["id"].toString());
       }
     });
 
-    this.trackService.get().subscribe(trackResponse => {
-
-      trackResponse.items.forEach(track => {
+    this.trackService.get().subscribe((trackResponse) => {
+      trackResponse.items.forEach((track) => {
         if (track.deleted === false) {
-          this.trackOptions = [...this.trackOptions, { value: track.id, label: track.name }];
+          this.trackOptions = [
+            ...this.trackOptions,
+            { value: track.id, label: track.name },
+          ];
           this.tracks = [...this.tracks, track];
         }
       });
@@ -56,11 +59,13 @@ export class LectureEditComponent implements OnInit {
       }
     });
 
-    this.speakerService.get().subscribe(speakerResponse => {
-
-      speakerResponse.items.forEach(speaker => {
+    this.speakerService.get().subscribe((speakerResponse) => {
+      speakerResponse.items.forEach((speaker) => {
         if (speaker.deleted === false) {
-          this.speakerOptions = [...this.speakerOptions, { value: speaker.id, label: speaker.name }];
+          this.speakerOptions = [
+            ...this.speakerOptions,
+            { value: speaker.id, label: speaker.name },
+          ];
           this.speakers = [...this.speakers, speaker];
         }
       });
@@ -72,44 +77,57 @@ export class LectureEditComponent implements OnInit {
   }
 
   cancel() {
-    this.navigateToPath('home/lectures');
+    this.navigateToPath("home/lectures");
   }
 
   create() {
-    this.lectureService.post(this.lecture).subscribe(lecture => {
-      this.poNotification.success(`Lecture ${lecture.title} created successfully!`);
-      this.navigateToPath('home/lectures');
-    }, error => {
-      this.poNotification.error(error.status + ' ' + error.statusText);
-    });
+    this.lectureService.post(this.lecture).subscribe(
+      (lecture) => {
+        this.poNotification.success(
+          `Lecture ${lecture.title} created successfully!`
+        );
+        this.navigateToPath("home/lectures");
+      },
+      (error) => {
+        this.poNotification.error(error.status + " " + error.statusText);
+      }
+    );
   }
 
   edit() {
-    this.lectureService.put(this.lecture).subscribe(lecture => {
-      this.poNotification.success(`Lecture ${lecture.title} updated successfully!`);
-      this.navigateToPath('home/lectures');
-    }, error => {
-      this.poNotification.error(error.status + ' ' + error.statusText);
-    });
+    this.lectureService.put(this.lecture).subscribe(
+      (lecture) => {
+        this.poNotification.success(
+          `Lecture ${lecture.title} updated successfully!`
+        );
+        this.navigateToPath("home/lectures");
+      },
+      (error) => {
+        this.poNotification.error(error.status + " " + error.statusText);
+      }
+    );
   }
 
   getLectureById(id: string) {
-    this.lectureService.getById(id).subscribe(lecture => {
-      this.lecture = lecture;
+    this.lectureService.getById(id).subscribe(
+      (lecture) => {
+        this.lecture = lecture;
 
-      this.title = `Edit lecture ${this.lecture.title}`;
-      this.isUpdate = true;
-    }, error => {
-      this.poNotification.error(error.status + ' ' + error.statusText);
-    });
+        this.title = `Edit lecture ${this.lecture.title}`;
+        this.isUpdate = true;
+      },
+      (error) => {
+        this.poNotification.error(error.status + " " + error.statusText);
+      }
+    );
   }
 
   getSpeakerImage(speakerId: string) {
-    return this.speakers.find(speaker => speaker.id === speakerId).photo;
+    return this.speakers.find((speaker) => speaker.id === speakerId).photo;
   }
 
   getTrackColor(trackId: string) {
-    return this.tracks.find(track => track.id === trackId).color;
+    return this.tracks.find((track) => track.id === trackId).color;
   }
 
   save() {
@@ -126,21 +144,26 @@ export class LectureEditComponent implements OnInit {
   }
 
   private transformTimeMaskLecture() {
-    if (!this.lecture.startTime.includes(':')) {
-      const hourStartTime = this.lecture.startTime.substring(2, 0).concat(':');
-      const minuteStartTime = this.lecture.startTime.substring(4, 2).concat(':');
+    if (!this.lecture.startTime.includes(":")) {
+      const hourStartTime = this.lecture.startTime.substring(2, 0).concat(":");
+      const minuteStartTime = this.lecture.startTime
+        .substring(4, 2)
+        .concat(":");
       const secondStartTime = this.lecture.startTime.substring(4, 6);
 
-      this.lecture.startTime = hourStartTime.concat(minuteStartTime).concat(secondStartTime);
+      this.lecture.startTime = hourStartTime
+        .concat(minuteStartTime)
+        .concat(secondStartTime);
     }
 
-    if (!this.lecture.endTime.includes(':')) {
-      const hourEndTime = this.lecture.endTime.substring(2, 0).concat(':');
-      const minuteEndTime = this.lecture.endTime.substring(4, 2).concat(':');
+    if (!this.lecture.endTime.includes(":")) {
+      const hourEndTime = this.lecture.endTime.substring(2, 0).concat(":");
+      const minuteEndTime = this.lecture.endTime.substring(4, 2).concat(":");
       const secondEndTime = this.lecture.endTime.substring(4, 6);
 
-      this.lecture.endTime = hourEndTime.concat(minuteEndTime).concat(secondEndTime);
+      this.lecture.endTime = hourEndTime
+        .concat(minuteEndTime)
+        .concat(secondEndTime);
     }
   }
-
 }

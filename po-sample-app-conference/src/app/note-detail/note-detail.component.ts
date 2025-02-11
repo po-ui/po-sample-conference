@@ -12,6 +12,7 @@ import { PoSyncService } from '@po-ui/ng-sync';
   selector: 'page-note-detail',
   templateUrl: 'note-detail.component.html',
   styleUrls: ['note-detail.component.scss'],
+  standalone: false
 })
 export class NoteDetailComponent {
   lectureId;
@@ -27,7 +28,7 @@ export class NoteDetailComponent {
     private router: Router,
     private noteService: NoteService,
     private userService: UserService
-  ) { }
+  ) {}
 
   ionViewWillEnter() {
     this.syncPreparedSubscription = this.activatedRoute.data.subscribe(() => {
@@ -40,7 +41,7 @@ export class NoteDetailComponent {
 
   ionViewWillLeave() {
     this.syncPreparedSubscription.unsubscribe();
-    this.onSyncSubscription.unsubscribe();  
+    this.onSyncSubscription.unsubscribe();
   }
 
   async alertRemoveNote() {
@@ -48,7 +49,7 @@ export class NoteDetailComponent {
       header: `Remove ${this.note.title}`,
       message: 'Would you like to remove this note?',
       buttons: [
-        { text: 'Cancel', handler: () => { } },
+        { text: 'Cancel', handler: () => {} },
         { text: 'Remove', handler: () => this.removeNote() }
       ]
     });
@@ -80,5 +81,4 @@ export class NoteDetailComponent {
     await this.noteService.remove(this.note);
     this.router.navigate(['/notes']);
   }
-
 }

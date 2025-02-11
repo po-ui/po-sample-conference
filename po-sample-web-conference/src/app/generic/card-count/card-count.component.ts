@@ -1,14 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'card-count',
-  templateUrl: './card-count.component.html',
-  styleUrls: ['./card-count.component.css']
+  selector: "card-count",
+  templateUrl: "./card-count.component.html",
+  styleUrls: ["./card-count.component.css"],
+  standalone: false,
 })
 export class CardCountComponent {
-
-  @Input('entityCount') count: number;
-  @Input('entityIcon') icon: string;
-  @Input('entityName') name: string;
-
+  @Input("entityCount") count: number;
+  @Input("entityIcon") icon: string;
+  @Input("entityName") name: string;
 }
