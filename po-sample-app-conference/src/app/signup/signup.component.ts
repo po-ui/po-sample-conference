@@ -9,10 +9,10 @@ import { Events } from './../services/events.service';
 
 @Component({
   selector: 'page-user',
-  templateUrl: 'signup.component.html'
+  templateUrl: 'signup.component.html',
+  standalone: false
 })
 export class SignupComponent {
-
   customLiterals: PoPageLoginLiterals = {
     submitLabel: 'Create account'
   };
@@ -23,7 +23,8 @@ export class SignupComponent {
     private events: Events,
     private poSync: PoSyncService,
     private userService: UserService,
-    private router: Router) {
+    private router: Router
+  ) {
     this.httpCommandEvents();
   }
 
@@ -36,7 +37,6 @@ export class SignupComponent {
 
   private httpCommandEvents() {
     this.poSync.getResponses().subscribe(poSyncResponse => {
-
       if (poSyncResponse.customRequestId === this.customRequestId) {
         const key = 'body';
         const user = poSyncResponse.response[key];
@@ -52,5 +52,4 @@ export class SignupComponent {
       this.router.navigateByUrl('/schedule');
     });
   }
-
 }

@@ -11,9 +11,9 @@ import { ScheduleFilterComponent } from '../schedule-filter/schedule-filter.comp
   selector: 'app-schedule-list',
   templateUrl: './schedule-list.component.html',
   styleUrls: ['./schedule-list.component.scss'],
+  standalone: false
 })
 export class ScheduleListComponent implements OnInit {
-
   @Input() lectures = [];
 
   @Input() currentUser;
@@ -24,7 +24,8 @@ export class ScheduleListComponent implements OnInit {
     private router: Router,
     private modal: ModalController,
     private userService: UserService,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController
+  ) {}
 
   ngOnInit() {}
 
@@ -33,18 +34,21 @@ export class ScheduleListComponent implements OnInit {
   }
 
   addFavorite(slidingItem, lecture) {
-    this.userService.addFavoriteLectureList(lecture.id).then(async () => {
-      const alert = await this.alertCtrl.create({
-        header: 'Favorite Added',
-        buttons: [{
-          text: 'OK',
-          handler: () => slidingItem.close()
-        }]
-      });
-      await alert.present();
-
-    }).catch(() => this.removeFavorite(slidingItem, lecture.id, lecture.title));
-
+    this.userService
+      .addFavoriteLectureList(lecture.id)
+      .then(async () => {
+        const alert = await this.alertCtrl.create({
+          header: 'Favorite Added',
+          buttons: [
+            {
+              text: 'OK',
+              handler: () => slidingItem.close()
+            }
+          ]
+        });
+        await alert.present();
+      })
+      .catch(() => this.removeFavorite(slidingItem, lecture.id, lecture.title));
   }
 
   async lecturePress() {
@@ -86,5 +90,4 @@ export class ScheduleListComponent implements OnInit {
       this.lectures = this.lectures.filter(lecture => lecture.id !== removedLectureId);
     }
   }
-
 }

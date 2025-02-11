@@ -8,16 +8,14 @@ import { NoteService } from './../services/note.service';
 @Component({
   selector: 'page-notes',
   templateUrl: 'note-list.component.html',
-  styleUrls: ['note-list.component.scss']
+  styleUrls: ['note-list.component.scss'],
+  standalone: false
 })
 export class NoteListComponent {
   notes = [];
   onSyncSubscription: Subscription;
 
-  constructor(
-    private noteService: NoteService,
-    private poSync: PoSyncService
-  ) { }
+  constructor(private noteService: NoteService, private poSync: PoSyncService) {}
 
   ionViewWillEnter() {
     this.loadNotes();
@@ -36,5 +34,4 @@ export class NoteListComponent {
   doRefresh(event) {
     this.noteService.synchronize().then(() => event.target.complete());
   }
-
 }

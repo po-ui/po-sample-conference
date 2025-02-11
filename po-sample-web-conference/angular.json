@@ -16,10 +16,7 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
-            "assets": [
-              "src/assets",
-              "src/favicon.ico"
-            ],
+            "assets": ["src/assets", "src/favicon.ico"],
             "styles": [
               "node_modules/@po-ui/style/css/po-theme-default-variables.min.css",
               "node_modules/@alinelariguet/po-rgb-neutral-theme/css/po-theme-po-rgb-neutral-theme-variables.min.css",
@@ -57,18 +54,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "po-sample-web-conference:build"
+            "buildTarget": "po-sample-web-conference:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "po-sample-web-conference:build:production"
+              "buildTarget": "po-sample-web-conference:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "po-sample-web-conference:build"
+            "buildTarget": "po-sample-web-conference:build"
           }
         },
         "test": {
@@ -83,10 +80,7 @@
               "node_modules/@po-ui/style/css/po-theme-default.min.css",
               "src/styles.css"
             ],
-            "assets": [
-              "src/assets",
-              "src/favicon.ico"
-            ]
+            "assets": ["src/assets", "src/favicon.ico"]
           }
         }
       }

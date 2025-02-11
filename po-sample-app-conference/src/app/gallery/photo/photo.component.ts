@@ -14,7 +14,8 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html',
-  styleUrls: ['./photo.component.scss']
+  styleUrls: ['./photo.component.scss'],
+  standalone: false
 })
 export class PhotoComponent {
   photoId;
@@ -54,7 +55,7 @@ export class PhotoComponent {
     public toastCtrl: ToastController,
     private poSync: PoSyncService,
     private router: Router,
-    private galleryService: GalleryService,
+    private galleryService: GalleryService
   ) {}
 
   ionViewWillEnter() {
@@ -102,7 +103,9 @@ export class PhotoComponent {
       };
 
       if (this.isEdition) {
-        const editURL = this.photo.title ? `${this.urlImage}/${this.photoId}/${this.photo.title}` : `${this.urlImage}/${this.photoId}`;
+        const editURL = this.photo.title
+          ? `${this.urlImage}/${this.photoId}/${this.photo.title}`
+          : `${this.urlImage}/${this.photoId}`;
 
         requestData = {
           url: editURL,
@@ -139,7 +142,7 @@ export class PhotoComponent {
     const alert = await this.alertCtrl.create({
       message: 'Would you like to remove this photo?',
       buttons: [
-        { text: 'Cancel', handler: () => { } },
+        { text: 'Cancel', handler: () => {} },
         { text: 'Remove', handler: () => this.deletePhoto(photoID) }
       ]
     });

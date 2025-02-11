@@ -9,10 +9,10 @@ import { LectureService } from '../services/lecture.service';
 
 @Component({
   selector: 'page-lecture-detail',
-  templateUrl: 'lecture-detail.component.html'
+  templateUrl: 'lecture-detail.component.html',
+  standalone: false
 })
 export class LectureDetailComponent {
-
   lecture;
   isLogged = false;
   lectureId;
@@ -23,9 +23,9 @@ export class LectureDetailComponent {
     public activatedRoute: ActivatedRoute,
     private lectureService: LectureService,
     private poSync: PoSyncService,
-    private userService: UserService,
+    private userService: UserService
   ) {
-    this.userService.getLoggedUserId().then(user => this.isLogged = !!user);
+    this.userService.getLoggedUserId().then(user => (this.isLogged = !!user));
   }
 
   ionViewWillEnter() {
@@ -51,5 +51,4 @@ export class LectureDetailComponent {
       this.lecture = lecture;
     });
   }
-
 }

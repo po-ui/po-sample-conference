@@ -10,10 +10,10 @@ import { SpeakerService } from './../services/speaker.service';
 @Component({
   selector: 'page-speaker-list',
   templateUrl: 'speaker-list.component.html',
-  styleUrls: ['speaker-list.component.scss']
+  styleUrls: ['speaker-list.component.scss'],
+  standalone: false
 })
 export class SpeakerListComponent {
-
   speakers = [];
   onSyncSubscription: Subscription;
 
@@ -62,5 +62,4 @@ export class SpeakerListComponent {
       this.speakers = speakers;
     });
   }
-
 }

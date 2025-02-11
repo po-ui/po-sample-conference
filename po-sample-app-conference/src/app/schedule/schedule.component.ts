@@ -15,10 +15,10 @@ import { Events } from '../services/events.service';
 
 @Component({
   selector: 'page-schedule',
-  templateUrl: 'schedule.component.html'
+  templateUrl: 'schedule.component.html',
+  standalone: false
 })
 export class ScheduleComponent {
-
   excludeTracks: any = [];
   filteredLectures = [];
   lectures = [];
@@ -36,7 +36,7 @@ export class ScheduleComponent {
     private userService: UserService,
     private poSync: PoSyncService,
     private events: Events
-  ) { }
+  ) {}
 
   ionViewWillEnter(): void {
     this.syncPrepared = this.activatedRoute.data.subscribe(() => {
@@ -51,7 +51,8 @@ export class ScheduleComponent {
       this.updateSchedule();
     });
 
-    this.events.get()
+    this.events
+      .get()
       .pipe(filter(event => event === 'user:logout'))
       .subscribe(() => {
         this.userId = undefined;
@@ -76,7 +77,7 @@ export class ScheduleComponent {
   }
 
   lectureFilter() {
-    const lectures = this.lectures.filter((lecture) => {
+    const lectures = this.lectures.filter(lecture => {
       const isNotExcludeTrack = !this.excludeTracks.includes(lecture.track.name);
       const isEqualQueryText = lecture.title.toLowerCase().includes(this.queryText);
 
@@ -95,7 +96,7 @@ export class ScheduleComponent {
   async presentFilter() {
     const modal = await this.modalCtrl.create({
       component: ScheduleFilterComponent,
-      componentProps: { excludeTracks: this.excludeTracks },
+      componentProps: { excludeTracks: this.excludeTracks }
     });
     modal.present();
 
@@ -110,14 +111,13 @@ export class ScheduleComponent {
   async lectureFavoriteFilter(lectures) {
     const favoriteLectures = await this.userService.getFavoriteLectures();
 
-    return lectures.filter((lecture) => favoriteLectures && favoriteLectures.includes(lecture.id));
+    return lectures.filter(lecture => favoriteLectures && favoriteLectures.includes(lecture.id));
   }
 
   private updateSchedule() {
-    this.lectureService.getLectures().then((lectures) => {
+    this.lectureService.getLectures().then(lectures => {
       this.lectures = lectures;
       this.lectureFilter();
     });
   }
-
 }

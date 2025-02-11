@@ -1,21 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 
-import { Lecture } from './../../model/lecture';
+import { Lecture } from "./../../model/lecture";
 
 @Component({
-  selector: 'lecture-card',
-  templateUrl: './lecture-card.component.html',
-  styleUrls: ['./lecture-card.component.css']
+  selector: "lecture-card",
+  templateUrl: "./lecture-card.component.html",
+  styleUrls: ["./lecture-card.component.css"],
+  standalone: false,
 })
 export class LectureCardComponent {
-
   /** Objeto do tipo Lecture referente a palestra. */
-  @Input('lecture') lecture: Lecture = new Lecture();
+  @Input("lecture") lecture: Lecture = new Lecture();
 
-  constructor() { }
+  constructor() {}
 
   getCardDescription() {
-    return this.lecture.startTime + ' - ' + this.lecture.endTime + ' : ' + this.lecture.room;
+    return (
+      this.lecture.startTime +
+      " - " +
+      this.lecture.endTime +
+      " : " +
+      this.lecture.room
+    );
   }
-
 }
