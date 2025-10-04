@@ -12,7 +12,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node public/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -35,7 +35,8 @@
     "reflect-metadata": "~0.1.13",
     "rimraf": "~3.0.2",
     "rxjs": "~7.5.5",
-    "swagger-ui-express": "~4.4.0"
+    "swagger-ui-express": "~4.4.0",
+    "next": "15.5.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.2.8",
